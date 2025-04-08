@@ -11,7 +11,7 @@ export const payInfoSchema = z.object({
   firstName: z.string().min(1, "First name required."),
   lastName: z.string().min(1, "Last name required."),
   cardNumber: z.string().length(16, "Invalid card number."),
-  expired: z.date(),
-  cvc: z.number().max(999),
-  year: z.string().length(4, "Invalid year"),
+  expires: z.string().min(1, "Expires required."),
+  cvc: z.coerce.number().max(999).min(1),
+  year: z.string().min(4, "Invalid year"),
 });
