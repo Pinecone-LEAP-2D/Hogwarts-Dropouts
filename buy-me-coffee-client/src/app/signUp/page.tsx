@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Coffee } from "lucide-react";
 
 const stepSchemas = [
   z.object({
@@ -57,8 +58,21 @@ export default function SignUpStepperForm() {
   };
 
   return (
-    <div className="w-full h-screen flex">
-      <div className="w-1/2 bg-amber-200" />
+    <><div className="w-full h-full flex">
+      
+      <div className="w-1/2 bg-amber-400">
+
+      <div className="flex ml-[100px] mt-[60px] font-bold text-2xl">
+        <Coffee/>
+        <p> Buy Me Coffee </p>
+      </div>
+      <div className="flex flex-col items-center justify-center h-screen">
+        <img
+        src="illustration.png"/>
+        <p className="font-bold">Fund your creative work</p>
+        <p>Accept support. Start a membership. Set up a shop. It's easier than you think.</p>
+      </div>
+      </div>
       <div className="w-1/2 flex items-center justify-center bg-white">
         <FormProvider {...form}>
           <Form {...form}>
@@ -87,8 +101,7 @@ export default function SignUpStepperForm() {
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  )}
-                />
+                  )} />
               )}
 
               {step === 1 && (
@@ -103,13 +116,11 @@ export default function SignUpStepperForm() {
                           <Input
                             type="email"
                             placeholder="Enter email"
-                            {...field}
-                          />
+                            {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    )} />
                   <FormField
                     control={form.control}
                     name="password"
@@ -120,13 +131,11 @@ export default function SignUpStepperForm() {
                           <Input
                             type="password"
                             placeholder="Enter password"
-                            {...field}
-                          />
+                            {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    )} />
                 </>
               )}
 
@@ -149,5 +158,7 @@ export default function SignUpStepperForm() {
         </FormProvider>
       </div>
     </div>
+
+      </>
   );
 }
