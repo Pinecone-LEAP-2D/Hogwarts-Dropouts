@@ -1,78 +1,87 @@
+
 "use client"
 
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
+import { Formik, Form, Field, ErrorMessage } from "formik"
+import * as Yup from "yup"
 import { Card, CardContent } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
-import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Coffee } from "lucide-react"
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().min(6, "Too Short!").required("Password is required"),
+})
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log({ email, password })
-  }
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div>
-        <img src="buy.jpg" alt="buyme" />
+    <>
+    <div className="flex w-full   bg-gray-100 px-4">
+      <div className="w-1/2  h-screen bg-amber-400">
+        <div className="flex ml-[100px] mt-[60px] font-bold text-2xl">
+          <Coffee />
+          <p> Buy Me Coffee </p>
+        </div>
+        <div className="flex flex-col items-center justify-center h-screen">
+          <img
+            src="coffee.png" />
+          <p className="font-bold">Fund your creative work</p>
+          <p>Accept support. Start a membership. Set up a shop. It's easier than you think.</p>
+        </div>
       </div>
-      <Card className="w-full max-w-md shadow-xl rounded-2xl">
-        <CardContent className="p-8">
-          <h1 className="text-2xl font-bold mb-6 text-center">Sign In</h1>
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
+      <div className="flex items-center justify-center w-1/2 h-screen">
+        <Card className="w-1/2 h-[350px] max-w-md shadow-md">
+          <CardContent className="p-6 ">
+            <h2 className="text-2xl font-bold mb-6 text-center">Welcome back</h2>
 
-            <div>
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+            <Formik
+              initialValues={{ email: "", password: "" }}
+              validationSchema={LoginSchema}
+              onSubmit={(values) => {
+                console.log("Login data:", values)
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Checkbox id="remember" />
-                <Label htmlFor="remember">Remember me</Label>
-              </div>
-              <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
-                Forgot password?
-              </Link>
-            </div>
+              } }
+            >
+              {({ isSubmitting }) => (
+                <Form className="space-y-4">
+                  <div>
+                    <h1 className="text-sm text-forgeground font-bold">Email</h1>
+                    <Field
+                      as={Input}
+                      type="email"
+                      name="email"
+                      placeholder="Email" />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="text-sm text-red-500 mt-1" />
+                  </div>
 
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
+                  <div>
+                    <h2 className="text-sm text-forgeground font-bold">Password</h2>
+                    <Field
+                      as={Input}
+                      type="password"
+                      name="password"
+                      placeholder="Password" />
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="text-sm text-red-500 mt-1" />
+                  </div>
 
-            <p className="text-sm text-center mt-4">
-              Don&apos;t have an account?{" "}
-              <Link href="/register" className="text-blue-600 hover:underline">
-                Sign up
-              </Link>
-            </p>
-          </form>
-        </CardContent>
-      </Card>
+                  <Button type="submit" disabled={isSubmitting} className="w-full">
+                    {isSubmitting ? "Logging in..." : "Continue"}
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+          </CardContent>
+        </Card>
+      </div>
     </div>
+    
+      </>
   )
 }
+
