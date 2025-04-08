@@ -13,7 +13,7 @@ const LoginSchema = Yup.object().shape({
 
 export default function LoginPage() {
   return (
-    <div className="flex flex-col items-center justify-center w-1/2 h-screen">
+    <div className="flex flex-col items-center justify-center w-full h-screen">
       <h2 className="text-2xl font-bold mb-6 text-center">Welcome back</h2>
 
       <Formik

@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Coffee } from "lucide-react";
 
 const stepSchemas = [
   z.object({
@@ -58,12 +57,12 @@ export default function SignUpStepperForm() {
   };
 
   return (
-    <div className="w-1/2 flex items-center justify-center bg-white">
+    <div className="w-full flex items-center justify-center bg-white">
       <FormProvider {...form}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-[400px] space-y-6"
+            className="w-full space-y-6"
           >
             <div>
               <h2 className="text-xl font-bold">Create Your Account</h2>

@@ -25,7 +25,7 @@ export default function RootLayout({
           </p>
         </div>
       </div>
-      <div>{children}</div>
+      <div className="w-1/2">{children}</div>
     </div>
   );
 }
