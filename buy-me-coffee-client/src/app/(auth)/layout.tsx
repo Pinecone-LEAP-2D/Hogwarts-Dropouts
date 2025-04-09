@@ -1,8 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Formik, Field, ErrorMessage } from "formik";
 import { Coffee } from "lucide-react";
-import { Form } from "react-hook-form";
 
 export default function RootLayout({
   children,
@@ -11,15 +7,15 @@ export default function RootLayout({
 }>) {
   return (
     <div className="flex h-screen w-full  bg-gray-100 ">
-      <div className="w-1/2  bg-amber-400">
-        <div className="flex  font-bold text-2xl gap-2 items-center h-1/10 justify-center">
+      <div className="w-1/2  bg-amber-300">
+        <div className="flex  font-bold text-2xl gap-2 items-center h-1/10 p-10 px-20">
           <Coffee />
           <p> Buy Me Coffee </p>
         </div>
         <div className="flex flex-col items-center justify-center h-8/10 ">
           <img src="coffee.png" />
-          <p className="font-bold">Fund your creative work</p>
-          <p>
+          <p className="font-bold text-3xl pt-7">Fund your creative work</p>
+          <p className="p-3 text-xl">
             Accept support. Start a membership. Set up a shop. It's easier than
             you think.
           </p>
