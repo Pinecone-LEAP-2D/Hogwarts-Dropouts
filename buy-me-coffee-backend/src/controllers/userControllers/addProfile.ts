@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import prisma from "../../prismaClient";
+type ProfileType = {
+  userId: number;
+  name: string;
+  about: string;
+  avatarImage: string;
+  socialMediaURL: string;
+};
 export const addProfile = async (req: Request, res: Response) => {
-  const {
-    userId,
-    name,
-    about,
-    avatarImage,
-    socialMediaURL,
-    backgroundImage,
-    successMessage,
-  } = req.body;
+  const { userId, name, about, avatarImage, socialMediaURL } =
+    req.body as unknown as ProfileType;
   try {
     const newProfile = await prisma.profile.create({
       data: {
@@ -18,9 +18,10 @@ export const addProfile = async (req: Request, res: Response) => {
         about: about,
         avatarImage: avatarImage,
         socialMediaURL: socialMediaURL,
-        backgroundImage: backgroundImage,
-        successMessage: successMessage,
       },
     });
-  } catch (error) {}
+    res.send(newProfile);
+  } catch (error) {
+    res.send(error);
+  }
 };
