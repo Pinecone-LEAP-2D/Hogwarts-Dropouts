@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 
 export const searchDonations = async (req: Request, res: Response) => {
   const { amountFilter, dateRange } = req.query;
+  const userId = Number(req.params.userId)
 
   const now = new Date();
   let dateFilter = {};
@@ -29,8 +30,10 @@ export const searchDonations = async (req: Request, res: Response) => {
       where: {
         ...amountCondition,
         ...(Object.keys(dateFilter).length > 0 && {
-          createdAt: dateFilter,
+          createdAt: dateFilter, 
+          recipientId: userId
         }),
+        
       },
       orderBy: {
         createdAt: "desc",

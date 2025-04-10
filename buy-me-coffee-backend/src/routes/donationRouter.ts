@@ -8,4 +8,4 @@ export const donationRouter = express.Router();
 donationRouter.post("/",createDonationMid, donationPay);
 donationRouter.get("/", getReceivedDonation)
 donationRouter.get("/total-earnings/:userId", getTotalEarnings)
-donationRouter.get("/search",searchDonations)
+donationRouter.get("/search/:userId",searchDonations)
