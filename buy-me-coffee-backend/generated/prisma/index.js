@@ -164,6 +164,7 @@ const config = {
     },
     "output": {
       "value": "/Users/24LP2027/Documents/GitHub/Hogwarts-Dropouts/buy-me-coffee-backend/generated/prisma",
+
       "fromEnvVar": null
     },
     "config": {
@@ -178,6 +179,7 @@ const config = {
     ],
     "previewFeatures": [],
     "sourceFilePath": "/Users/24LP2027/Documents/GitHub/Hogwarts-Dropouts/buy-me-coffee-backend/prisma/schema.prisma",
+
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
