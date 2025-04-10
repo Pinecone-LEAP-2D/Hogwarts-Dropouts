@@ -6184,11 +6184,11 @@ export namespace Prisma {
 
   export type ProfileWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    name?: string
     userId?: number
     AND?: ProfileWhereInput | ProfileWhereInput[]
     OR?: ProfileWhereInput[]
     NOT?: ProfileWhereInput | ProfileWhereInput[]
-    name?: StringFilter<"Profile"> | string
     about?: StringFilter<"Profile"> | string
     avatarImage?: StringFilter<"Profile"> | string
     socialMediaURL?: StringFilter<"Profile"> | string
@@ -6197,7 +6197,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "userId">
+  }, "id" | "name" | "userId">
 
   export type ProfileOrderByWithAggregationInput = {
     id?: SortOrder

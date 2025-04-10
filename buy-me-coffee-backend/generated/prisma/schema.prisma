@@ -42,7 +42,7 @@ model Donations {
 
 model Profile {
   id              Int      @id @default(autoincrement())
-  name            String
+  name            String   @unique
   about           String
   avatarImage     String
   socialMediaURL  String

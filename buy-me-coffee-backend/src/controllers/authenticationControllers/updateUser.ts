@@ -7,7 +7,8 @@ type User = {
 };
 
 export const updateUser = async (req: Request, res: Response) => {
-  const { id, username, email } = req.body as unknown as User;
+  const { id } = req.params as unknown as User;
+  const { username, email } = req.query as unknown as User;
   console.log(req.body);
 
   try {
