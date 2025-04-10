@@ -26,6 +26,7 @@ export const createBankCard = async (req: Request, res: Response) => {
     });
     res.status(201).json(newCard);
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       error: true,
       message: error instanceof Error ? error.message : "Unknown server error",
