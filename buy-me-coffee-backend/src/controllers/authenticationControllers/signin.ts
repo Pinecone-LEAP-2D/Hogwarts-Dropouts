@@ -1,5 +1,5 @@
 import prisma from "../../prismaClient";
-
+import { Response, Request } from "express";
 type User = {
   username: string;
   password: string;
