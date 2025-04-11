@@ -32,6 +32,7 @@ export const signin = async (req: Request, res: Response) => {
             success: true,
             message: "logged in",
             token: token,
+            userId: user.id,
           })
           .status(200);
       } else {

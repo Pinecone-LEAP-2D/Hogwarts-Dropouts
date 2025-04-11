@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import prisma from "../../prismaClient";
 export const userNameExist = async (
-    req: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -9,16 +9,16 @@ export const userNameExist = async (
   try {
     const isExist = await prisma.user.findUnique({
       where: {
-        username: username
+        username: username,
       },
     });
     if (isExist) {
-        res.status(404).send({
-            success: false,
-            message: "Username exist",
-          });
+      res.status(404).send({
+        success: false,
+        message: "Username exist",
+      });
     } else {
-     next()
+      next();
     }
   } catch (error) {
     res.status(500).send({
