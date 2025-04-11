@@ -1,6 +1,7 @@
 import prisma from "../../prismaClient";
 import bcrypt from "bcrypt"; // To hash the password before storing it
 import { Request, Response } from "express";
+
 type User = {
   username: string;
   password: string;
