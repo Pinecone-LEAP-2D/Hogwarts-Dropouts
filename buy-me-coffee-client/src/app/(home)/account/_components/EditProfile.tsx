@@ -46,6 +46,7 @@ export const EditProfile = () => {
       >
         <p className="font-bold  text-3xl">My account</p>
         <div className="p-5 space-y-4 border rounded-md">
+          <p className="font-bold">Personal info</p>
           <FormField
             control={form.control}
             name="avatarImage"

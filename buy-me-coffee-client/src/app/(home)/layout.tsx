@@ -10,7 +10,7 @@ export default function RootLayout({
     <div className="relative">
       <Header />
       <div className="flex-reverse w-full">
-        <div className="w-full flex justify-center overflow-scroll fixed top-20">
+        <div className="w-full h-screen flex justify-center overflow-scroll fixed top-20">
           {children}
         </div>
         <Navigation />
