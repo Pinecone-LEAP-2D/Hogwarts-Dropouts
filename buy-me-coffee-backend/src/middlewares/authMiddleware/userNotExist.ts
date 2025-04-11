@@ -17,7 +17,7 @@ export const userNotExist = async (
     } else {
       res.status(404).send({
         success: false,
-        message: "User not found",
+        message: "User email exist",
       });
     }
   } catch (error) {
