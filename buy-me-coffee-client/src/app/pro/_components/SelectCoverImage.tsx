@@ -1,31 +1,89 @@
 import { useRef, useState } from "react";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Camera } from "lucide-react";
+
+const CLOUDINARY_CLOUD_NAME = "dnxg6ckrh";
+const CLOUDINARY_UPLOAD_PRESET = "ml_default";
+const NEXT_PUBLIC_CLOUDINARY_API_KEY = "996938878911193";
+const API_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+
+const uploadImageToCloudinary = async (file: File) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+  formData.append("api_key", NEXT_PUBLIC_CLOUDINARY_API_KEY || "");
+
+  try {
+    const response = await axios.post(API_URL, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data.secure_url;
+  } catch (err) {
+    console.error("Error uploading image", err);
+    return null;
+  }
+};
+
+const saveProfile = async (values: {
+  profileId: number;
+  successMessage: string;
+  backgroundImage: string;
+}) => {
+  console.log(values.backgroundImage);
+
+  try {
+    const response = await axios.put("http://localhost:4000/profile", values);
+
+    if (response.data.success) {
+      console.log("Profile updated successfully");
+    }
+  } catch (err) {
+    console.error("Error updating profile", err);
+  }
+};
 
 export const SelectCoverImage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => setPreviewImage(reader.result as string);
+    reader.readAsDataURL(file);
+
+    setIsUploading(true);
+    const uploadedUrl = await uploadImageToCloudinary(file);
+    setIsUploading(false);
+
+    if (uploadedUrl) {
+      setImageUrl(uploadedUrl);
+      await saveProfile({
+        profileId: 9,
+        successMessage: "Profile updated successfully",
+        backgroundImage: uploadedUrl,
+      }); // Example, update profileId and message as needed
+    }
+  };
 
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageUrl(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   return (
     <div className="w-full h-[320px] bg-[#F4F4F5] relative flex items-center justify-center overflow-hidden">
-      {imageUrl && (
+      {(previewImage || imageUrl) && (
         <img
-          src={imageUrl}
+          src={previewImage || imageUrl!}
           alt="Selected cover"
           className="absolute inset-0 object-cover w-full h-full"
         />
@@ -43,9 +101,14 @@ export const SelectCoverImage = () => {
         <Button
           className="flex gap-2 bg-white/80 hover:bg-white text-black"
           onClick={handleButtonClick}
+          disabled={isUploading}
         >
           <Camera className="w-4 h-4" />
-          {imageUrl ? "Change cover image" : "Add a cover image"}
+          {isUploading
+            ? "Uploading..."
+            : imageUrl
+            ? "Change cover image"
+            : "Add a cover image"}
         </Button>
       </div>
     </div>
