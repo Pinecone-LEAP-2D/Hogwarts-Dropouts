@@ -3,7 +3,7 @@ import { NavButton } from "./NavButton";
 
 export const Navigation = () => {
   return (
-    <div className="px-20 flex flex-col w-1/5 fixed top-20">
+    <div className="px-20 flex flex-col w-1/5 z-20 fixed top-20">
       <Link href={"/home"}>
         <NavButton name="Home" />
       </Link>

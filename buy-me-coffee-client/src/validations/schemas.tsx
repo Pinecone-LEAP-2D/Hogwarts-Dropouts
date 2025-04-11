@@ -15,3 +15,15 @@ export const payInfoSchema = z.object({
   cvc: z.coerce.number().max(999).min(1),
   year: z.string().min(4, "Invalid year"),
 });
+export const MessageType = z.object({
+  successMessage: z.string().min(1, "Enter message "),
+});
+export const PasswordTypes = z
+  .object({
+    password: z.string().min(1, "Password is required"),
+    confirm: z.string().min(1, "Please confirm your password"),
+  })
+  .refine(data => data.password === data.confirm, {
+    message: "Passwords do not match",
+    path: ["confirm"],
+  });

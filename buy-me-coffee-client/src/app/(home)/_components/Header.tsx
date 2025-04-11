@@ -8,7 +8,7 @@ import {
 } from "@radix-ui/react-popover";
 export const Header = () => {
   return (
-    <div className="flex p-5 justify-between px-15 w-full fixed top-0">
+    <div className="flex p-5 justify-between px-15 w-full fixed top-0 bg-white z-40 ">
       <div className="flex font-extrabold gap-2">
         <Coffee />
         <p>Buy Me Coffee</p>
@@ -26,7 +26,6 @@ export const Header = () => {
               </Avatar>
               <p>Name</p>
             </div>
-
             <ChevronDown size={15} />
           </div>
         </PopoverTrigger>

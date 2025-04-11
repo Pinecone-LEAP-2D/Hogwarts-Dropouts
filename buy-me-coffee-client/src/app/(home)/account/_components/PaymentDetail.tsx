@@ -44,15 +44,12 @@ export const PaymentDetail = () => {
     console.log(values);
     console.log("success");
   };
-  const cvc = form.watch("cvc");
-  console.log(cvc);
 
   return (
     <FormProvider {...form}>
       <form
-        className="space-y-4 p-10 py-40"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
+        className="space-y-4 p-5 pt-5"
+        onSubmit={form.handleSubmit(onSubmit)}>
         <div className=" space-y-4 p-5 border rounded-md">
           <p className="font-bold">Payment detail</p>
 
@@ -65,8 +62,7 @@ export const PaymentDetail = () => {
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                    defaultValue={field.value}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
@@ -151,8 +147,7 @@ export const PaymentDetail = () => {
                   <FormControl>
                     <Select
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                      defaultValue={field.value}>
                       <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Month" />
                       </SelectTrigger>
@@ -161,8 +156,7 @@ export const PaymentDetail = () => {
                           return (
                             <SelectItem
                               key={index}
-                              value={(index + 1).toString()}
-                            >
+                              value={(index + 1).toString()}>
                               {index + 1} сар
                             </SelectItem>
                           );
@@ -183,8 +177,7 @@ export const PaymentDetail = () => {
                   <FormControl>
                     <Select
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                      defaultValue={field.value}>
                       <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Year" />
                       </SelectTrigger>
@@ -195,8 +188,7 @@ export const PaymentDetail = () => {
                               key={index}
                               value={(
                                 parseInt(moment().format("YYYY")) + index
-                              ).toString()}
-                            >
+                              ).toString()}>
                               {parseInt(moment().format("YYYY")) + index}
                             </SelectItem>
                           );
@@ -228,7 +220,7 @@ export const PaymentDetail = () => {
             />
           </div>
           <Button className="w-full" type="submit">
-            Continue
+            Save changes
           </Button>
         </div>
       </form>

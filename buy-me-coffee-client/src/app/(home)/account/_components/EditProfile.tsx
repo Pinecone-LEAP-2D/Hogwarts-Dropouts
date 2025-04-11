@@ -40,10 +40,7 @@ export const EditProfile = () => {
 
   return (
     <FormProvider {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 p-5 py-20 "
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 p-5  ">
         <p className="font-bold  text-3xl">My account</p>
         <div className="p-5 space-y-4 border rounded-md">
           <p className="font-bold">Personal info</p>
@@ -59,8 +56,7 @@ export const EditProfile = () => {
                       className={cn(
                         "w-[150px] h-[150px] rounded-full flex items-center justify-center border border-dashed border-2",
                         form.getValues("avatarImage").length !== 0 && "hidden"
-                      )}
-                    >
+                      )}>
                       <Camera color="gray" />
                     </div>
                     {form.getValues("avatarImage").length !== 0 && (
@@ -141,8 +137,7 @@ export const EditProfile = () => {
           <Button
             type="submit"
             onClick={() => onSubmit(form.getValues())}
-            className="w-full"
-          >
+            className="w-full">
             Save changes
           </Button>
         </div>
