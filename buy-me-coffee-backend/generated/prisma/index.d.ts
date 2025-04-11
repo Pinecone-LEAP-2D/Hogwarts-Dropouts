@@ -3742,8 +3742,8 @@ export namespace Prisma {
     about: string
     avatarImage: string
     socialMediaURL: string
-    backgroundImage: string
-    successMessage: string
+    backgroundImage: string | null
+    successMessage: string | null
     createdAt: Date
     updatedAt: Date
     userId: number
@@ -3845,8 +3845,8 @@ export namespace Prisma {
       about: string
       avatarImage: string
       socialMediaURL: string
-      backgroundImage: string
-      successMessage: string
+      backgroundImage: string | null
+      successMessage: string | null
       createdAt: Date
       updatedAt: Date
       userId: number
@@ -5933,6 +5933,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   /**
    * Field references
    */
@@ -6152,8 +6160,8 @@ export namespace Prisma {
     about?: StringFilter<"Profile"> | string
     avatarImage?: StringFilter<"Profile"> | string
     socialMediaURL?: StringFilter<"Profile"> | string
-    backgroundImage?: StringFilter<"Profile"> | string
-    successMessage?: StringFilter<"Profile"> | string
+    backgroundImage?: StringNullableFilter<"Profile"> | string | null
+    successMessage?: StringNullableFilter<"Profile"> | string | null
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
     userId?: IntFilter<"Profile"> | number
@@ -6166,8 +6174,8 @@ export namespace Prisma {
     about?: SortOrder
     avatarImage?: SortOrder
     socialMediaURL?: SortOrder
-    backgroundImage?: SortOrder
-    successMessage?: SortOrder
+    backgroundImage?: SortOrderInput | SortOrder
+    successMessage?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -6176,20 +6184,20 @@ export namespace Prisma {
 
   export type ProfileWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    name?: string
     userId?: number
     AND?: ProfileWhereInput | ProfileWhereInput[]
     OR?: ProfileWhereInput[]
     NOT?: ProfileWhereInput | ProfileWhereInput[]
-    name?: StringFilter<"Profile"> | string
     about?: StringFilter<"Profile"> | string
     avatarImage?: StringFilter<"Profile"> | string
     socialMediaURL?: StringFilter<"Profile"> | string
-    backgroundImage?: StringFilter<"Profile"> | string
-    successMessage?: StringFilter<"Profile"> | string
+    backgroundImage?: StringNullableFilter<"Profile"> | string | null
+    successMessage?: StringNullableFilter<"Profile"> | string | null
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "userId">
+  }, "id" | "name" | "userId">
 
   export type ProfileOrderByWithAggregationInput = {
     id?: SortOrder
@@ -6197,8 +6205,8 @@ export namespace Prisma {
     about?: SortOrder
     avatarImage?: SortOrder
     socialMediaURL?: SortOrder
-    backgroundImage?: SortOrder
-    successMessage?: SortOrder
+    backgroundImage?: SortOrderInput | SortOrder
+    successMessage?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -6218,8 +6226,8 @@ export namespace Prisma {
     about?: StringWithAggregatesFilter<"Profile"> | string
     avatarImage?: StringWithAggregatesFilter<"Profile"> | string
     socialMediaURL?: StringWithAggregatesFilter<"Profile"> | string
-    backgroundImage?: StringWithAggregatesFilter<"Profile"> | string
-    successMessage?: StringWithAggregatesFilter<"Profile"> | string
+    backgroundImage?: StringNullableWithAggregatesFilter<"Profile"> | string | null
+    successMessage?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
     userId?: IntWithAggregatesFilter<"Profile"> | number
@@ -6455,8 +6463,8 @@ export namespace Prisma {
     about: string
     avatarImage: string
     socialMediaURL: string
-    backgroundImage: string
-    successMessage: string
+    backgroundImage?: string | null
+    successMessage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutProfileInput
@@ -6468,8 +6476,8 @@ export namespace Prisma {
     about: string
     avatarImage: string
     socialMediaURL: string
-    backgroundImage: string
-    successMessage: string
+    backgroundImage?: string | null
+    successMessage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: number
@@ -6480,8 +6488,8 @@ export namespace Prisma {
     about?: StringFieldUpdateOperationsInput | string
     avatarImage?: StringFieldUpdateOperationsInput | string
     socialMediaURL?: StringFieldUpdateOperationsInput | string
-    backgroundImage?: StringFieldUpdateOperationsInput | string
-    successMessage?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    successMessage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProfileNestedInput
@@ -6493,8 +6501,8 @@ export namespace Prisma {
     about?: StringFieldUpdateOperationsInput | string
     avatarImage?: StringFieldUpdateOperationsInput | string
     socialMediaURL?: StringFieldUpdateOperationsInput | string
-    backgroundImage?: StringFieldUpdateOperationsInput | string
-    successMessage?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    successMessage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
@@ -6506,8 +6514,8 @@ export namespace Prisma {
     about: string
     avatarImage: string
     socialMediaURL: string
-    backgroundImage: string
-    successMessage: string
+    backgroundImage?: string | null
+    successMessage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: number
@@ -6518,8 +6526,8 @@ export namespace Prisma {
     about?: StringFieldUpdateOperationsInput | string
     avatarImage?: StringFieldUpdateOperationsInput | string
     socialMediaURL?: StringFieldUpdateOperationsInput | string
-    backgroundImage?: StringFieldUpdateOperationsInput | string
-    successMessage?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    successMessage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6530,8 +6538,8 @@ export namespace Prisma {
     about?: StringFieldUpdateOperationsInput | string
     avatarImage?: StringFieldUpdateOperationsInput | string
     socialMediaURL?: StringFieldUpdateOperationsInput | string
-    backgroundImage?: StringFieldUpdateOperationsInput | string
-    successMessage?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    successMessage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
@@ -6814,6 +6822,26 @@ export namespace Prisma {
     donorId?: SortOrder
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type ProfileCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -6861,6 +6889,24 @@ export namespace Prisma {
   export type ProfileSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type BankCardCountOrderByAggregateInput = {
@@ -7117,6 +7163,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type UserUpdateOneRequiredWithoutProfileNestedInput = {
     create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutProfileInput
@@ -7233,6 +7283,48 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type DonationsCreateWithoutDonorInput = {
     amount: number
     specialMessage: string
@@ -7327,8 +7419,8 @@ export namespace Prisma {
     about: string
     avatarImage: string
     socialMediaURL: string
-    backgroundImage: string
-    successMessage: string
+    backgroundImage?: string | null
+    successMessage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7339,8 +7431,8 @@ export namespace Prisma {
     about: string
     avatarImage: string
     socialMediaURL: string
-    backgroundImage: string
-    successMessage: string
+    backgroundImage?: string | null
+    successMessage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7443,8 +7535,8 @@ export namespace Prisma {
     about?: StringFieldUpdateOperationsInput | string
     avatarImage?: StringFieldUpdateOperationsInput | string
     socialMediaURL?: StringFieldUpdateOperationsInput | string
-    backgroundImage?: StringFieldUpdateOperationsInput | string
-    successMessage?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    successMessage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7455,8 +7547,8 @@ export namespace Prisma {
     about?: StringFieldUpdateOperationsInput | string
     avatarImage?: StringFieldUpdateOperationsInput | string
     socialMediaURL?: StringFieldUpdateOperationsInput | string
-    backgroundImage?: StringFieldUpdateOperationsInput | string
-    successMessage?: StringFieldUpdateOperationsInput | string
+    backgroundImage?: NullableStringFieldUpdateOperationsInput | string | null
+    successMessage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

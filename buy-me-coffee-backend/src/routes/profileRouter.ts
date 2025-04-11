@@ -1,0 +1,12 @@
+import express from "express";
+import { addProfile } from "../controllers/userControllers/addProfile";
+import { updateProfile } from "../controllers/userControllers/updateProfile";
+import { getAllProfile } from "../controllers/userControllers/getAllProfile";
+import { getUserProfile } from "../controllers/userControllers/getUserProfile";
+import { getCurrentProfile } from "../controllers/userControllers/getCurrentProfile";
+export const profileRouter = express.Router();
+profileRouter.post("/", addProfile);
+profileRouter.put("/", updateProfile);
+profileRouter.get("/explore", getAllProfile);
+profileRouter.get("/view/:username", getUserProfile);
+profileRouter.get("/", getCurrentProfile);
