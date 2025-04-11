@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   FormField,
@@ -10,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { profileSchema } from "@/validations/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Camera } from "lucide-react";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";

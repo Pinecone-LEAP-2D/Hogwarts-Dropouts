@@ -11,7 +11,7 @@ export const NavButton = (props: { name: string }) => {
     <>
       <Button
         className={cn(
-          "bg-white text-black",
+          "bg-white text-black w-[145px]",
           name.toLocaleLowerCase().includes(pathName.split("/")[1]) &&
             "bg-gray-300"
         )}

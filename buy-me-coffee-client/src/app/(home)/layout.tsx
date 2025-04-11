@@ -1,4 +1,4 @@
-import { Header } from "@/components/Header";
+import { Header } from "./_components/Header";
 import { Navigation } from "./_components/Navigation";
 
 export default function RootLayout({
@@ -7,11 +7,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <div className="relative">
       <Header />
-      <div className="flex">
+      <div className="flex-reverse w-full">
+        <div className="w-full flex justify-center overflow-scroll fixed top-20">
+          {children}
+        </div>
         <Navigation />
-        {children}
       </div>
     </div>
   );
