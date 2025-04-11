@@ -42,12 +42,12 @@ model Donations {
 
 model Profile {
   id              Int      @id @default(autoincrement())
-  name            String
+  name            String   @unique
   about           String
   avatarImage     String
   socialMediaURL  String
-  backgroundImage String
-  successMessage  String
+  backgroundImage String?  @default("")
+  successMessage  String?  @default("")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   userId          Int      @unique
