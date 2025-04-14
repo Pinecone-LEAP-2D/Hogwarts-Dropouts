@@ -38,8 +38,7 @@ export const AboutUserInfo = () => {
         <a
           className="text-blue-600 hover:underline"
           href="https://buymecoffee.com/spacerulz44"
-          target="_blank"
-        >
+          target="_blank">
           https://buymecoffee.com/spacerulz44
         </a>
       </div>
@@ -55,14 +54,13 @@ export const AboutUserInfo = () => {
 
         {hasSupporters && (
           <div className="space-y-2">
-            {donations.map((donation) => (
+            {donations.map(donation => (
               <div
                 key={donation.id}
-                className="bg-gray-100 p-3 rounded-md shadow-sm"
-              >
+                className="bg-gray-100 p-3 rounded-md shadow-sm">
                 <p>
                   <span className="font-semibold">
-                    {donation.donor.username}
+                    {donation.donor?.username}
                   </span>{" "}
                   donated ${donation.amount}
                 </p>

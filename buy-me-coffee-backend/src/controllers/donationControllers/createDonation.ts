@@ -28,7 +28,10 @@ export const donationPay = async (req: Request, res:Response) => {
             error: true,
             message: err || "An unexpected error occurred",
           });
-    } finally{
-        prisma.$disconnect();
-    }
+    } 
+    // finally{
+    //     prisma.$disconnect();
+    // }
 }
+
+
