@@ -27,7 +27,6 @@ export const Step2 = () => {
       "http://localhost:4000/auth/sign-up",
       values
     );
-    console.log(response.data);
   };
   const form = useForm<z.infer<typeof usernameSchema>>({
     resolver: zodResolver(usernameSchema),

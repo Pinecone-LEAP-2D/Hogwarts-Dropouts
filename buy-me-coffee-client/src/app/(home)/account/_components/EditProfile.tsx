@@ -15,15 +15,17 @@ import { useForm, FormProvider } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import { useProfile } from "@/providers/ProfileProvider";
 
 export const EditProfile = () => {
+  const { user } = useProfile();
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      name: "",
-      about: "",
-      avatarImage: "",
-      socialMediaURL: "",
+      name: user.name,
+      about: user.about,
+      avatarImage: user.avatarImage,
+      socialMediaURL: user.socialMediaURL,
     },
   });
   const onSubmit = (values: z.infer<typeof profileSchema>) => {
@@ -40,15 +42,14 @@ export const EditProfile = () => {
 
   return (
     <FormProvider {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 p-5 py-20 "
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 p-5  ">
         <p className="font-bold  text-3xl">My account</p>
         <div className="p-5 space-y-4 border rounded-md">
+          <p className="font-bold">Personal info</p>
           <FormField
             control={form.control}
             name="avatarImage"
+            defaultValue={user.avatarImage}
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="image">
@@ -58,13 +59,12 @@ export const EditProfile = () => {
                       className={cn(
                         "w-[150px] h-[150px] rounded-full flex items-center justify-center border border-dashed border-2",
                         form.getValues("avatarImage").length !== 0 && "hidden"
-                      )}
-                    >
+                      )}>
                       <Camera color="gray" />
                     </div>
                     {form.getValues("avatarImage").length !== 0 && (
                       <img
-                        src={form.getValues("avatarImage")}
+                        src={field.value}
                         alt="Avatar Preview"
                         className="w-[150px] h-[150px] rounded-full"
                       />
@@ -87,6 +87,7 @@ export const EditProfile = () => {
           <FormField
             control={form.control}
             name="name"
+            defaultValue={user.name}
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="name">Name</FormLabel>
@@ -140,8 +141,7 @@ export const EditProfile = () => {
           <Button
             type="submit"
             onClick={() => onSubmit(form.getValues())}
-            className="w-full"
-          >
+            className="w-full">
             Save changes
           </Button>
         </div>

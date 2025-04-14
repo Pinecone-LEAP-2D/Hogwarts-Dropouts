@@ -6,9 +6,11 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@radix-ui/react-popover";
+import { useProfile } from "@/providers/ProfileProvider";
 export const Header = () => {
+  const { user } = useProfile();
   return (
-    <div className="flex p-5 justify-between px-15 w-full fixed top-0">
+    <div className="flex p-5 justify-between px-15 w-full fixed top-0 bg-white z-40 ">
       <div className="flex font-extrabold gap-2">
         <Coffee />
         <p>Buy Me Coffee</p>
@@ -24,9 +26,8 @@ export const Header = () => {
                 />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
-              <p>Name</p>
+              <p>{user?.name}</p>
             </div>
-
             <ChevronDown size={15} />
           </div>
         </PopoverTrigger>

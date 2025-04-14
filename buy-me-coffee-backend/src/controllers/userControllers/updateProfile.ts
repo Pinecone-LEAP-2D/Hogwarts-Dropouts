@@ -4,10 +4,21 @@ type ProfileIdType = {
   profileId: number;
   successMessage: string;
   backgroundImage: string;
+  avatarImage: string;
+  name: string;
+  about: string;
+  socialMediaURL: string;
 };
 export const updateProfile = async (req: Request, res: Response) => {
-  const { profileId, successMessage, backgroundImage } =
-    req.body as unknown as ProfileIdType;
+  const {
+    profileId,
+    successMessage,
+    backgroundImage,
+    avatarImage,
+    name,
+    about,
+    socialMediaURL,
+  } = req.body as unknown as ProfileIdType;
   try {
     const updatedProfile = await prisma.profile.update({
       where: {
@@ -16,6 +27,10 @@ export const updateProfile = async (req: Request, res: Response) => {
       data: {
         successMessage: successMessage,
         backgroundImage: backgroundImage,
+        avatarImage: avatarImage,
+        name: name,
+        about: about,
+        socialMediaURL: socialMediaURL,
       },
     });
     res.send({

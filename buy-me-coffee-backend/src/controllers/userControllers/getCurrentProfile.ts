@@ -7,8 +7,9 @@ export const getCurrentProfile = async (req: Request, res: Response) => {
   const { currentUser } = req.query as unknown as CurrentUser;
   try {
     const user = await prisma.profile.findUnique({
-      where: { name: currentUser },
+      where: { userId: parseInt(currentUser, 10) },
     });
+
     res.send(user);
   } catch (error) {
     res.send({
