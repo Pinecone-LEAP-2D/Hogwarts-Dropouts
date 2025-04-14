@@ -15,15 +15,17 @@ import { useForm, FormProvider } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import { useProfile } from "@/providers/ProfileProvider";
 
 export const EditProfile = () => {
+  const { user } = useProfile();
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      name: "",
-      about: "",
-      avatarImage: "",
-      socialMediaURL: "",
+      name: user.name,
+      about: user.about,
+      avatarImage: user.avatarImage,
+      socialMediaURL: user.socialMediaURL,
     },
   });
   const onSubmit = (values: z.infer<typeof profileSchema>) => {
@@ -47,6 +49,7 @@ export const EditProfile = () => {
           <FormField
             control={form.control}
             name="avatarImage"
+            defaultValue={user.avatarImage}
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="image">
@@ -61,7 +64,7 @@ export const EditProfile = () => {
                     </div>
                     {form.getValues("avatarImage").length !== 0 && (
                       <img
-                        src={form.getValues("avatarImage")}
+                        src={field.value}
                         alt="Avatar Preview"
                         className="w-[150px] h-[150px] rounded-full"
                       />
@@ -84,6 +87,7 @@ export const EditProfile = () => {
           <FormField
             control={form.control}
             name="name"
+            defaultValue={user.name}
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="name">Name</FormLabel>

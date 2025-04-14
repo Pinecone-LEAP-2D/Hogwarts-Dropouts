@@ -26,10 +26,8 @@ export const ProfileProvider = ({
 }) => {
   const router = useRouter();
   const userId =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("userId") || "")
-      : "";
-  const { data: user } = useQuery({
+    typeof window !== "undefined" ? localStorage.getItem("userId") : 0;
+  const { data: user, refetch } = useQuery({
     queryKey: ["profile", userId],
     queryFn: async () => {
       const response = await axios.get(
@@ -46,34 +44,8 @@ export const ProfileProvider = ({
     localStorage.removeItem("token");
     router.push("/logIn");
   };
-
-  const updateUserInfo = async (values: {
-    token: string | null;
-    phoneNumber?: number;
-    address?: string;
-    orderItem?: { food: string; quantity: number };
-  }) => {
-    try {
-      await axios.put(
-        "https://food-delivery-service-bx3v.onrender.com/user",
-        values
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const gerUser = async (id: { id: string }) => {
-    try {
-      const response = await axios.post(
-        "https://food-delivery-service-bx3v.onrender.com/user",
-        {
-          id: id,
-        }
-      );
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+  const updateProfile = async (values: ProfileType) => {
+    const response = await axios.put("http://localhost:4000/profile", values);
   };
 
   return (
