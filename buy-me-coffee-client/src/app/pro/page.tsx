@@ -7,10 +7,10 @@ import { SelectCoverImage } from "./_components/SelectCoverImage";
 
 export default function Home() {
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-screen relative">
       <Header />
       <SelectCoverImage />
-      <div className="flex gap-5 justify-center">
+      <div className="flex gap-5 absolute left-1/2 top-[300px] transform -translate-x-1/2">
         <AboutUserInfo />
         <DonationAmount />
       </div>
