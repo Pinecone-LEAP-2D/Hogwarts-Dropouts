@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { useDonations } from "@/providers/DonationProvider";
 import { Heart } from "lucide-react";

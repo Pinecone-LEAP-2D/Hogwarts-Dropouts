@@ -12,7 +12,7 @@ export default function Home() {
     <div className="w-3/7  flex flex-col justify-center ">
       <EditProfile />
       <ChangePassword />
-      {user.bankCards.map((card, index) => {
+      {user.bankCards?.map((card, index) => {
         return <PaymentDetail key={index} values={card} />;
       })}
       <SuccessMessage />

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext } from "react";
-type ProfileType = {
+export type ProfileType = {
   id: string;
   name: string | undefined;
   avatarImage: string | undefined;
