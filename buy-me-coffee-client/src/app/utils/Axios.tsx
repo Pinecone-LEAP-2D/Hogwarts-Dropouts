@@ -16,10 +16,11 @@ export const getReceivedDonations = async () => {
 };
 export const addDonation = async (donation: Donation) => {
   try {
-    const response = await axios.post(
-      "http://localhost:4000/donation",
-      donation
-    );
+    const response = await axios.post("http://localhost:4000/donation", {
+      ...donation,
+    });
+    console.log(response.data);
+
     return response.data;
   } catch (err) {
     console.log("error while adding donation", err);

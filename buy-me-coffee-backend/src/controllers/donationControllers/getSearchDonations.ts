@@ -3,26 +3,26 @@ import prisma from "../../prismaClient";
 import { Request, Response } from "express";
 
 export const searchDonations = async (req: Request, res: Response) => {
-  const { amountFilter, dateRange } = req.query;
+  const { amount, date } = req.query;
   const userId = Number(req.params.userId)
 
   const now = new Date();
   let dateFilter = {};
 
   
-  if (dateRange === "last30") {
+  if (date === "last30") {
     dateFilter = { gte: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000) };
-  } else if (dateRange === "last90") {
+  } else if (date === "last90") {
     dateFilter = { gte: new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000) };
   }
 
 
   let amountCondition = {};
 
-  if (amountFilter === "1" || amountFilter === "3" || amountFilter === "5" || amountFilter === "10") {
-    amountCondition = { amount: Number(amountFilter) };
-  } else if (amountFilter === "other") {
-    amountCondition = { amount: { notIn: [1, 3, 5, 10] } };
+  if (amount === "1" || amount === "2" || amount === "5" || amount === "10") {
+    amountCondition = { amount: Number(amount) };
+  } else if (amount === "other") {
+    amountCondition = { amount: { notIn: [1, 2, 5, 10] } };
   }
 
   try {
