@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import moment from "moment";
 import { Button } from "@/components/ui/button";
+import { useProfile } from "@/providers/ProfileProvider";
 const countris = [
   "United States",
   "Australia",
@@ -27,22 +28,36 @@ const countris = [
   "New Zealand",
   "United Kingdom",
 ];
-export const PaymentDetail = () => {
+export const PaymentDetail = (props: {
+  values: {
+    id: number;
+    country: string;
+    firstName: string;
+    lastName: string;
+    cardNumber: string;
+    expiryDate: string;
+  };
+}) => {
+  const { expiryDate } = props.values;
+  const { updateCardInfo } = useProfile();
   const form = useForm<z.infer<typeof payInfoSchema>>({
     resolver: zodResolver(payInfoSchema),
     defaultValues: {
-      country: "",
-      firstName: "",
-      lastName: "",
-      cardNumber: "",
-      expires: "", // Default to the current date
-      cvc: 0, // Default CVC value (or adjust as needed)
-      year: "",
+      ...props.values,
+      expires: expiryDate.toString().split("/")[0],
+      year: expiryDate.toString().split("/")[1],
+      cvc: 0,
     },
   });
-  const onSubmit = (values: z.infer<typeof payInfoSchema>) => {
-    console.log(values);
-    console.log("success");
+  const onSubmit = async (values: z.infer<typeof payInfoSchema>) => {
+    await updateCardInfo({
+      id: values.id,
+      expiryDate: form.getValues("expires") + "/" + form.getValues("year"),
+      country: values.country,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      cardNumber: values.cardNumber,
+    });
   };
 
   return (
@@ -149,14 +164,18 @@ export const PaymentDetail = () => {
                       onValueChange={field.onChange}
                       defaultValue={field.value}>
                       <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Month" />
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="h-[200px] overflow-scroll">
                         {Array.from({ length: 12 }).map((_, index) => {
                           return (
                             <SelectItem
                               key={index}
-                              value={(index + 1).toString()}>
+                              value={
+                                index < 10
+                                  ? "0" + (index + 1).toString()
+                                  : (index + 1).toString()
+                              }>
                               {index + 1} сар
                             </SelectItem>
                           );
@@ -179,10 +198,10 @@ export const PaymentDetail = () => {
                       onValueChange={field.onChange}
                       defaultValue={field.value}>
                       <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Year" />
+                        <SelectValue placeholder={`${field.value} f`} />
                       </SelectTrigger>
                       <SelectContent>
-                        {Array.from({ length: 5 }).map((_, index) => {
+                        {Array.from({ length: 6 }).map((_, index) => {
                           return (
                             <SelectItem
                               key={index}

@@ -8,9 +8,19 @@ export const getCurrentProfile = async (req: Request, res: Response) => {
   try {
     const user = await prisma.profile.findUnique({
       where: { userId: parseInt(currentUser, 10) },
+      include: {
+        user: true,
+      },
     });
-
-    res.send(user);
+    const bankAccs = await prisma.bankCard.findMany({
+      where: {
+        userId: parseInt(currentUser, 10),
+      },
+    });
+    res.send({
+      ...user,
+      bankCards: bankAccs,
+    });
   } catch (error) {
     res.send({
       error: true,
@@ -18,5 +28,3 @@ export const getCurrentProfile = async (req: Request, res: Response) => {
     });
   }
 };
-
-

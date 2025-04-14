@@ -32,9 +32,7 @@ export const updateBankCard = async (req: Request, res: Response) => {
         firstName: bankCardUpdates.firstName ?? existingCard.firstName,
         lastName: bankCardUpdates.lastName ?? existingCard.lastName,
         cardNumber: bankCardUpdates.cardNumber ?? existingCard.cardNumber,
-        expiryDate: bankCardUpdates.expiryDate
-          ? new Date(bankCardUpdates.expiryDate)
-          : existingCard.expiryDate,
+        expiryDate: bankCardUpdates.expiryDate ?? existingCard.expiryDate,
       },
     });
 

@@ -16,9 +16,11 @@ import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { useProfile } from "@/providers/ProfileProvider";
-
+import { uploadImageToCloudinary } from "@/app/pro/_components/SelectCoverImage";
+import { useState } from "react";
 export const EditProfile = () => {
-  const { user } = useProfile();
+  const { user, updateProfile } = useProfile();
+  const [uploadImg, setUploadImg] = useState<File>();
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
@@ -28,15 +30,27 @@ export const EditProfile = () => {
       socialMediaURL: user.socialMediaURL,
     },
   });
-  const onSubmit = (values: z.infer<typeof profileSchema>) => {
+  const onSubmit = async (values: z.infer<typeof profileSchema>) => {
     console.log(values);
     console.log("success");
+    if (!uploadImg) return;
+    await updateProfile({
+      ...values,
+      avatarImage: await uploadImageToCloudinary(uploadImg),
+      id: "",
+      backgroundImage: undefined,
+      successMessage: undefined,
+      bankCards: [],
+    });
   };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const objectUrl = URL.createObjectURL(file);
-      form.setValue("avatarImage", objectUrl);
+      setUploadImg(file);
+      const reader = new FileReader();
+      reader.onload = () =>
+        form.setValue("avatarImage", reader.result as string);
+      reader.readAsDataURL(file);
     }
   };
 

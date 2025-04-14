@@ -20,13 +20,13 @@ export const createBankCard = async (req: Request, res: Response) => {
         firstName: bankCard.firstName,
         lastName: bankCard.lastName,
         cardNumber: bankCard.cardNumber,
-        expiryDate: new Date(bankCard.expiryDate), // ensure it's a Date
+        expiryDate: bankCard.expiryDate, // ensure it's a Date
         userId: bankCard.userId,
       },
     });
     res.status(201).json(newCard);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({
       error: true,
       message: error instanceof Error ? error.message : "Unknown server error",
