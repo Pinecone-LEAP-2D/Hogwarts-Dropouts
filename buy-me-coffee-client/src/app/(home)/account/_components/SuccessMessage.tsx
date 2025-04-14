@@ -8,21 +8,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useProfile } from "@/providers/ProfileProvider";
 import { MessageType } from "@/validations/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import { z } from "zod";
 
 export const SuccessMessage = () => {
+  const { user, updateProfile } = useProfile();
   const form = useForm<z.infer<typeof MessageType>>({
     resolver: zodResolver(MessageType),
     defaultValues: {
-      successMessage: "",
+      successMessage: user.successMessage,
     },
   });
-  const onSubmit = (values: z.infer<typeof MessageType>) => {
-    console.log(values);
-    console.log("success");
+
+  const onSubmit = async (values: z.infer<typeof MessageType>) => {
+    await updateProfile({
+      ...values,
+      id: "",
+      name: undefined,
+      avatarImage: undefined,
+      socialMediaURL: undefined,
+      about: undefined,
+      backgroundImage: undefined,
+      bankCards: [],
+    });
   };
   return (
     <FormProvider {...form}>

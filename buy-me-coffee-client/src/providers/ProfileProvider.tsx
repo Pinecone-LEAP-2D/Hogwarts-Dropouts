@@ -5,16 +5,29 @@ import { useRouter } from "next/navigation";
 import React, { createContext, useContext } from "react";
 type ProfileType = {
   id: string;
-  name: string;
-  avatarImage: string;
-  socialMediaURL: string;
-  about: string;
-  backgroundImage: string;
-  successMessage: string;
+  name: string | undefined;
+  avatarImage: string | undefined;
+  socialMediaURL: string | undefined;
+  about: string | undefined;
+  backgroundImage: string | undefined;
+  successMessage: string | undefined;
+  bankCards: BankCard[];
+};
+type BankCard = {
+  id: number;
+  country: string;
+  firstName: string;
+  lastName: string;
+  cardNumber: string;
+  expiryDate: string;
+  year: string;
+  cvc: number;
 };
 type ProfileContextType = {
   user: ProfileType;
   handleLogout: () => void;
+  updateProfile: (values: ProfileType) => Promise<void>;
+  updateCardInfo: (values: BankCard) => Promise<void>;
 };
 const ProfileContext = createContext<ProfileContextType>(
   {} as ProfileContextType
@@ -44,8 +57,19 @@ export const ProfileProvider = ({
     localStorage.removeItem("token");
     router.push("/logIn");
   };
+
   const updateProfile = async (values: ProfileType) => {
+    const response = await axios.put("http://localhost:4000/profile", {
+      profileId: user.id,
+      ...values,
+    });
+    await refetch();
+    console.log(response.data);
+  };
+  const updateCardInfo = async (values: BankCard) => {
     const response = await axios.put("http://localhost:4000/profile", values);
+    console.log(response.data);
+    await refetch();
   };
 
   return (
@@ -53,6 +77,8 @@ export const ProfileProvider = ({
       value={{
         user: user,
         handleLogout: handleLogout,
+        updateProfile: updateProfile,
+        updateCardInfo: updateCardInfo,
       }}>
       {!user ? <div>...loading</div> : children}
     </ProfileContext.Provider>

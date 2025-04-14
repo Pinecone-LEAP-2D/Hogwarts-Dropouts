@@ -1,3 +1,4 @@
+"use client";
 import { useRef, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,7 @@ const CLOUDINARY_UPLOAD_PRESET = "ml_default";
 
 const API_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
-const uploadImageToCloudinary = async (file: File) => {
+export const uploadImageToCloudinary = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
@@ -101,13 +102,11 @@ export const SelectCoverImage = () => {
           imageUrl
             ? "top-4 right-4" // Top-right when there's an image
             : " flex items-center left-1/2  transform -translate-x-1/2" // Center when no image
-        }`}
-      >
+        }`}>
         <Button
           className="flex gap-2 bg-white/80 hover:bg-white text-black"
           onClick={handleButtonClick}
-          disabled={isUploading}
-        >
+          disabled={isUploading}>
           <Camera className="w-4 h-4" />
           {isUploading
             ? "Uploading..."
