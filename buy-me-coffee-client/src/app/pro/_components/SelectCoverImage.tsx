@@ -5,14 +5,13 @@ import { Camera } from "lucide-react";
 
 const CLOUDINARY_CLOUD_NAME = "dnxg6ckrh";
 const CLOUDINARY_UPLOAD_PRESET = "ml_default";
-const NEXT_PUBLIC_CLOUDINARY_API_KEY = "996938878911193";
+
 const API_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 const uploadImageToCloudinary = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-  formData.append("api_key", NEXT_PUBLIC_CLOUDINARY_API_KEY || "");
 
   try {
     const response = await axios.post(API_URL, formData, {
@@ -97,7 +96,13 @@ export const SelectCoverImage = () => {
         style={{ display: "none" }}
       />
 
-      <div className="relative z-10">
+      <div
+        className={`absolute z-10 ${
+          imageUrl
+            ? "top-4 right-4" // Top-right when there's an image
+            : " flex items-center left-1/2  transform -translate-x-1/2" // Center when no image
+        }`}
+      >
         <Button
           className="flex gap-2 bg-white/80 hover:bg-white text-black"
           onClick={handleButtonClick}
