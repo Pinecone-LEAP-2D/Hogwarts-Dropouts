@@ -7,6 +7,7 @@ export const profileSchema = z.object({
   about: z.string().min(1, "Please enter info about yourself."),
 });
 export const payInfoSchema = z.object({
+  id: z.number(),
   country: z.string().min(1, "Select country to continue."),
   firstName: z.string().min(1, "First name required."),
   lastName: z.string().min(1, "Last name required."),

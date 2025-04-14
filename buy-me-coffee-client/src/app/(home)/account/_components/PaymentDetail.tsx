@@ -36,12 +36,10 @@ export const PaymentDetail = (props: {
     lastName: string;
     cardNumber: string;
     expiryDate: string;
-    year: string;
-    cvc: number;
   };
 }) => {
   const { expiryDate } = props.values;
-  const {} = useProfile();
+  const { updateCardInfo } = useProfile();
   const form = useForm<z.infer<typeof payInfoSchema>>({
     resolver: zodResolver(payInfoSchema),
     defaultValues: {
@@ -51,9 +49,15 @@ export const PaymentDetail = (props: {
       cvc: 0,
     },
   });
-  const onSubmit = (values: z.infer<typeof payInfoSchema>) => {
-    console.log(values);
-    console.log("success");
+  const onSubmit = async (values: z.infer<typeof payInfoSchema>) => {
+    await updateCardInfo({
+      id: values.id,
+      expiryDate: form.getValues("expires") + "/" + form.getValues("year"),
+      country: values.country,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      cardNumber: values.cardNumber,
+    });
   };
 
   return (
@@ -160,7 +164,7 @@ export const PaymentDetail = (props: {
                       onValueChange={field.onChange}
                       defaultValue={field.value}>
                       <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder={`${field.value} сар`} />
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="h-[200px] overflow-scroll">
                         {Array.from({ length: 12 }).map((_, index) => {

@@ -13,15 +13,13 @@ type ProfileType = {
   successMessage: string | undefined;
   bankCards: BankCard[];
 };
-type BankCard = {
+export type BankCard = {
   id: number;
   country: string;
   firstName: string;
   lastName: string;
   cardNumber: string;
   expiryDate: string;
-  year: string;
-  cvc: number;
 };
 type ProfileContextType = {
   user: ProfileType;
@@ -59,16 +57,17 @@ export const ProfileProvider = ({
   };
 
   const updateProfile = async (values: ProfileType) => {
-    const response = await axios.put("http://localhost:4000/profile", {
+    await axios.put("http://localhost:4000/profile", {
       profileId: user.id,
       ...values,
     });
     await refetch();
-    console.log(response.data);
   };
   const updateCardInfo = async (values: BankCard) => {
-    const response = await axios.put("http://localhost:4000/profile", values);
-    console.log(response.data);
+    await axios.put("http://localhost:4000/bank-acc", {
+      ...values,
+      profileId: values.id,
+    });
     await refetch();
   };
 
