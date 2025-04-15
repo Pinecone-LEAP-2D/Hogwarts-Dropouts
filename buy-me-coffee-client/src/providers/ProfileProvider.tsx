@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext } from "react";
+import { useLoading } from "./LoaderProvider";
+
 export type ProfileType = {
   id: number;
   name: string | undefined;
@@ -26,27 +28,34 @@ type ProfileContextType = {
   handleLogout: () => void;
   updateProfile: (values: ProfileType) => Promise<void>;
   updateCardInfo: (values: BankCard) => Promise<void>;
+  userId: string | 0 | null;
 };
 const ProfileContext = createContext<ProfileContextType>(
   {} as ProfileContextType
 );
+
 export const ProfileProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
+  const { isLoading, setIsLoading } = useLoading();
+
   const router = useRouter();
   const userId =
     typeof window !== "undefined" ? localStorage.getItem("userId") : 0;
   const { data: user, refetch } = useQuery({
     queryKey: ["profile", userId],
     queryFn: async () => {
+      // setIsLoading(true);
       const response = await axios.get(
         `http://localhost:4000/profile/?currentUser=${userId}`
       );
       if (!response.data) {
         router.push("/profile");
       }
+      setIsLoading(false);
+
       return response.data;
     },
   });
@@ -79,8 +88,18 @@ export const ProfileProvider = ({
         handleLogout: handleLogout,
         updateProfile: updateProfile,
         updateCardInfo: updateCardInfo,
+        userId: userId,
       }}>
-      {!user ? <div>...loading</div> : children}
+      {isLoading == true ? (
+        <div>
+          <div>
+            <img src="https://s3-alpha-sig.figma.com/img/07f9/97c5/b22f6bc9ba535eec9efcdd0bacb3bb4d?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=RVZlgTF6mUtalHooEWzMyYfM0RgAC90fdGSXBtxoXzCaWiMx1OwKNvEuhBZneVMa2Javz1blckCYcaoiQLyVwAjunKFlb5X5iHOaH9IPnaAUCpxYUaWwDkD8ATVuV9McSLVXQJqS1FPMS1PvmkzYDUZ3n5T8pxGNmBeYyLMd2v~JYlHAaEpePhO5h3xbPJafLXnq91XrGvuQCPPOcLXQZvPQdnqz1F-MugK4H3N~u7AjGkajbLu1wCfWyNaomxgQUGaHsFX8SUF3alEaKnDd73cJpsHgod0vXTQyZLudW78ekgKa01d1H7FdBPdf67K5Dvw0cUjkw6i1q4uK6av9Pw__" />
+            <p>aaaa bisda</p>
+          </div>
+        </div>
+      ) : (
+        children
+      )}
     </ProfileContext.Provider>
   );
 };
