@@ -4726,7 +4726,7 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     cardNumber: string | null
-    expiryDate: Date | null
+    expiryDate: string | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: number | null
@@ -4738,7 +4738,7 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     cardNumber: string | null
-    expiryDate: Date | null
+    expiryDate: string | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: number | null
@@ -4897,7 +4897,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     cardNumber: string
-    expiryDate: Date
+    expiryDate: string
     createdAt: Date
     updatedAt: Date
     userId: number
@@ -4995,7 +4995,7 @@ export namespace Prisma {
       firstName: string
       lastName: string
       cardNumber: string
-      expiryDate: Date
+      expiryDate: string
       createdAt: Date
       updatedAt: Date
       userId: number
@@ -5428,7 +5428,7 @@ export namespace Prisma {
     readonly firstName: FieldRef<"BankCard", 'String'>
     readonly lastName: FieldRef<"BankCard", 'String'>
     readonly cardNumber: FieldRef<"BankCard", 'String'>
-    readonly expiryDate: FieldRef<"BankCard", 'DateTime'>
+    readonly expiryDate: FieldRef<"BankCard", 'String'>
     readonly createdAt: FieldRef<"BankCard", 'DateTime'>
     readonly updatedAt: FieldRef<"BankCard", 'DateTime'>
     readonly userId: FieldRef<"BankCard", 'Int'>
@@ -6242,7 +6242,7 @@ export namespace Prisma {
     firstName?: StringFilter<"BankCard"> | string
     lastName?: StringFilter<"BankCard"> | string
     cardNumber?: StringFilter<"BankCard"> | string
-    expiryDate?: DateTimeFilter<"BankCard"> | Date | string
+    expiryDate?: StringFilter<"BankCard"> | string
     createdAt?: DateTimeFilter<"BankCard"> | Date | string
     updatedAt?: DateTimeFilter<"BankCard"> | Date | string
     userId?: IntFilter<"BankCard"> | number
@@ -6271,7 +6271,7 @@ export namespace Prisma {
     country?: StringFilter<"BankCard"> | string
     firstName?: StringFilter<"BankCard"> | string
     lastName?: StringFilter<"BankCard"> | string
-    expiryDate?: DateTimeFilter<"BankCard"> | Date | string
+    expiryDate?: StringFilter<"BankCard"> | string
     createdAt?: DateTimeFilter<"BankCard"> | Date | string
     updatedAt?: DateTimeFilter<"BankCard"> | Date | string
     userId?: IntFilter<"BankCard"> | number
@@ -6304,7 +6304,7 @@ export namespace Prisma {
     firstName?: StringWithAggregatesFilter<"BankCard"> | string
     lastName?: StringWithAggregatesFilter<"BankCard"> | string
     cardNumber?: StringWithAggregatesFilter<"BankCard"> | string
-    expiryDate?: DateTimeWithAggregatesFilter<"BankCard"> | Date | string
+    expiryDate?: StringWithAggregatesFilter<"BankCard"> | string
     createdAt?: DateTimeWithAggregatesFilter<"BankCard"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BankCard"> | Date | string
     userId?: IntWithAggregatesFilter<"BankCard"> | number
@@ -6550,7 +6550,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     cardNumber: string
-    expiryDate: Date | string
+    expiryDate: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutBankCardInput
@@ -6562,7 +6562,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     cardNumber: string
-    expiryDate: Date | string
+    expiryDate: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: number
@@ -6573,7 +6573,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     cardNumber?: StringFieldUpdateOperationsInput | string
-    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiryDate?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBankCardNestedInput
@@ -6585,7 +6585,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     cardNumber?: StringFieldUpdateOperationsInput | string
-    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiryDate?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
@@ -6597,7 +6597,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     cardNumber: string
-    expiryDate: Date | string
+    expiryDate: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: number
@@ -6608,7 +6608,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     cardNumber?: StringFieldUpdateOperationsInput | string
-    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiryDate?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6619,7 +6619,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     cardNumber?: StringFieldUpdateOperationsInput | string
-    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiryDate?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
@@ -7359,7 +7359,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     cardNumber: string
-    expiryDate: Date | string
+    expiryDate: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7370,7 +7370,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     cardNumber: string
-    expiryDate: Date | string
+    expiryDate: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7497,7 +7497,7 @@ export namespace Prisma {
     firstName?: StringFilter<"BankCard"> | string
     lastName?: StringFilter<"BankCard"> | string
     cardNumber?: StringFilter<"BankCard"> | string
-    expiryDate?: DateTimeFilter<"BankCard"> | Date | string
+    expiryDate?: StringFilter<"BankCard"> | string
     createdAt?: DateTimeFilter<"BankCard"> | Date | string
     updatedAt?: DateTimeFilter<"BankCard"> | Date | string
     userId?: IntFilter<"BankCard"> | number
@@ -7817,7 +7817,7 @@ export namespace Prisma {
     firstName: string
     lastName: string
     cardNumber: string
-    expiryDate: Date | string
+    expiryDate: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7866,7 +7866,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     cardNumber?: StringFieldUpdateOperationsInput | string
-    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiryDate?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7877,7 +7877,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     cardNumber?: StringFieldUpdateOperationsInput | string
-    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiryDate?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7888,7 +7888,7 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     cardNumber?: StringFieldUpdateOperationsInput | string
-    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiryDate?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -4,20 +4,22 @@ import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import axios from "axios"
-import { log } from "console";
+import axios from "axios";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string().min(6, "Too Short!").required("Password is required"),
 });
-const handleLogin=async (values:{email:string,password:string})=>{
+const handleLogin = async (values: { email: string; password: string }) => {
   console.log(values);
-  const response=await axios.post("http://localhost:4000/auth/sign-in",values)
-  
-console.log(response.data);
-
-}
+  const response = await axios.post(
+    "http://localhost:4000/auth/sign-in",
+    values
+  );
+  localStorage.setItem("token", response.data.token);
+  localStorage.setItem("userId", JSON.stringify(response.data.userId));
+  console.log(response.data);
+};
 export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
@@ -26,10 +28,9 @@ export default function LoginPage() {
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={LoginSchema}
-        onSubmit={(values) => {
-          handleLogin(values)
-        }}
-      >
+        onSubmit={values => {
+          handleLogin(values);
+        }}>
         {({ isSubmitting }) => (
           <Form className="space-y-4 w-full flex flex-col items-center justify-center">
             <div className="w-1/3 ">
