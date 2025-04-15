@@ -1,11 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useDonations } from "@/providers/DonationProvider";
+import { ProfileType, useProfile } from "@/providers/ProfileProvider";
 import { Heart } from "lucide-react";
 
-export const AboutUserInfo = () => {
+export const AboutUserInfo = (props: { currentUser: ProfileType }) => {
   const { donations, loading } = useDonations();
-
+  const { currentUser } = props;
+  const { user } = useProfile();
   const hasSupporters = Array.isArray(donations) && donations.length > 0;
 
   return (
@@ -20,17 +22,16 @@ export const AboutUserInfo = () => {
               height={48}
               alt="Jake's avatar"
             />
-            <p className="font-bold">Jake</p>
+            <p className="font-bold">{currentUser.name}</p>
           </div>
-          <Button className="bg-[#F4F4F5] text-black">Edit page</Button>
+          {user.id === currentUser.id && (
+            <Button className="bg-[#F4F4F5] text-black">Edit page</Button>
+          )}
         </div>
         <hr className="my-4" />
         <div>
-          <p className="font-medium">About Jake</p>
-          <p>
-            I'm a typical person who enjoys exploring different things. I also
-            make music and art as a hobby. Follow me along!
-          </p>
+          <p className="font-medium">About {currentUser.name}</p>
+          <p>{currentUser.about}</p>
         </div>
       </div>
 
@@ -40,7 +41,7 @@ export const AboutUserInfo = () => {
           className="text-blue-600 hover:underline"
           href="https://buymecoffee.com/spacerulz44"
           target="_blank">
-          https://buymecoffee.com/spacerulz44
+          {currentUser.socialMediaURL}
         </a>
       </div>
       <div className="space-y-4 border rounded-2xl p-4">
@@ -54,7 +55,7 @@ export const AboutUserInfo = () => {
         )}
 
         {hasSupporters && (
-          <div className="space-y-2">
+          <div className="space-y-2 h-[250px] overflow-scroll">
             {donations.map(donation => (
               <div
                 key={donation.id}

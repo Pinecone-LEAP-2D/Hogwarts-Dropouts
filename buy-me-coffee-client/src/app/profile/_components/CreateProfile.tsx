@@ -15,8 +15,17 @@ import { useForm, FormProvider } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import axios from "axios";
+import { Dispatch, SetStateAction } from "react";
 
-export const CreateProfile = () => {
+export const CreateProfile = (props: {
+  setPage: Dispatch<SetStateAction<number>>;
+}) => {
+  const { setPage } = props;
+  const userId =
+    typeof window !== "undefined"
+      ? parseInt(localStorage.getItem("userId") || "")
+      : 0;
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
@@ -26,9 +35,25 @@ export const CreateProfile = () => {
       socialMediaURL: "",
     },
   });
-  const onSubmit = (values: z.infer<typeof profileSchema>) => {
-    console.log(values);
-    console.log("success");
+  const createNewProfile = async (values: {
+    userId: number;
+    name: string;
+    about: string;
+    avatarImage: string;
+    socialMediaURL: string;
+  }) => {
+    const response = await axios.post("http://localhost:4000/profile", values);
+    console.log(response.data);
+    if (response.data.id) {
+      setPage(2);
+    }
+  };
+  const onSubmit = async (values: z.infer<typeof profileSchema>) => {
+    try {
+      await createNewProfile({ ...values, userId: userId });
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -42,8 +67,7 @@ export const CreateProfile = () => {
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 p-10 py-40"
-      >
+        className="space-y-8 p-10 py-40">
         <p className="font-bold text-3xl">Complete your profile page</p>
         <FormField
           control={form.control}
@@ -57,8 +81,7 @@ export const CreateProfile = () => {
                     className={cn(
                       "w-[150px] h-[150px] rounded-full flex items-center justify-center border border-dashed border-2",
                       form.getValues("avatarImage").length !== 0 && "hidden"
-                    )}
-                  >
+                    )}>
                     <Camera color="gray" />
                   </div>
                   {form.getValues("avatarImage").length !== 0 && (
@@ -140,8 +163,7 @@ export const CreateProfile = () => {
           <Button
             type="submit"
             onClick={() => onSubmit(form.getValues())}
-            className="w-1/2"
-          >
+            className="w-1/2">
             Continue
           </Button>
         </div>

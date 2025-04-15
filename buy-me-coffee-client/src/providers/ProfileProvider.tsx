@@ -4,7 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext } from "react";
 export type ProfileType = {
-  id: string;
+  id: number;
   name: string | undefined;
   avatarImage: string | undefined;
   socialMediaURL: string | undefined;
@@ -45,7 +45,11 @@ export const ProfileProvider = ({
         `http://localhost:4000/profile/?currentUser=${userId}`
       );
       console.log(response.data);
-
+      if (!response.data) {
+        router.push("/profile");
+      } else {
+        router.push("/home");
+      }
       return response.data;
     },
   });

@@ -37,7 +37,7 @@ export const EditProfile = () => {
     await updateProfile({
       ...values,
       avatarImage: await uploadImageToCloudinary(uploadImg),
-      id: "",
+      id: 0,
       backgroundImage: undefined,
       successMessage: undefined,
       bankCards: [],
