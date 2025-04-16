@@ -3,7 +3,8 @@ import { useState, createContext, useContext, useEffect } from "react";
 import { getReceivedDonations } from "@/app/utils/Axios";
 import axios from "axios";
 import { useProfile } from "./ProfileProvider";
-import { LoadingProvider, useLoading } from "./LoaderProvider";
+import { Loader } from "@/components/Loader";
+
 type receivedDonations = {
   id: number;
   amount: number;
@@ -45,17 +46,17 @@ export const DonationProvider = ({
   children: React.ReactNode;
 }) => {
   const [donations, setDonations] = useState<receivedDonations[]>([]);
-  // const [loading, setLoading] = useState(true);
-  const { isLoading, setIsLoading } = useLoading();
+  const [loading, setLoading] = useState(true);
 
   const fetchDonations = async () => {
     try {
+      setLoading(true);
       const data = await getReceivedDonations();
       setDonations(data || []);
     } catch (error) {
       console.error("Error fetching donations:", error);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
   const createDonations = async (donation: Donation) => {
@@ -90,6 +91,7 @@ export const DonationProvider = ({
     date?: string;
   }) => {
     try {
+      // setLoading(true);
       const params = new URLSearchParams(filters).toString();
       const res = await axios.get(
         `http://localhost:4000/donation/search/${userId}?${params}`
@@ -97,6 +99,8 @@ export const DonationProvider = ({
       setDonations(res.data.donations || []);
     } catch (err) {
       console.error("Error searching donations:", err);
+    } finally {
+      // setLoading(false);
     }
   };
 
@@ -108,14 +112,14 @@ export const DonationProvider = ({
     <DonationContext.Provider
       value={{
         donations,
-        isLoading,
+        isLoading: loading,
         fetchDonations,
         createDonations,
         totalEarning,
         fetchTotalEarnings,
         searchDonations,
       }}>
-      {isLoading ? <div>hhhh</div> : children}
+      <Loader loading={loading}>{children}</Loader>
     </DonationContext.Provider>
   );
 };

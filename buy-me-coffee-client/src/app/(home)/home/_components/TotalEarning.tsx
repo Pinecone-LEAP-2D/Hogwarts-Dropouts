@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useDonations } from "@/providers/DonationProvider";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import {
   Select,
   SelectContent,
