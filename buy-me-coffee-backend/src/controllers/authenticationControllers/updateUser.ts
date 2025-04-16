@@ -9,7 +9,6 @@ type User = {
 export const updateUser = async (req: Request, res: Response) => {
   const { id } = req.params as unknown as User;
   const { username, email } = req.query as unknown as User;
-  console.log(req.body);
 
   try {
     const updatedUser = await prisma.user.update({

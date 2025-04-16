@@ -23,7 +23,6 @@ export const ChangePassword = () => {
   });
   const onSubmit = (values: z.infer<typeof PasswordTypes>) => {
     console.log(values);
-    console.log("success");
   };
   return (
     <FormProvider {...form}>

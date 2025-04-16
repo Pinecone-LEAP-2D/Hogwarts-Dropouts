@@ -11,22 +11,30 @@ import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { SubmitButton } from "./SubmitButton";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export const Step2 = () => {
   const usernameSchema = z.object({
     email: z.string().email("Invalid email"),
     password: z.string().min(4, "Password must be at least 4 characters"),
   });
+  const router = useRouter();
   const handleSignUp = async (values: {
     username: string;
     email: string;
     password: string;
   }) => {
-    console.log(values);
-    const response = await axios.post(
-      "http://localhost:4000/auth/sign-up",
-      values
-    );
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/auth/sign-up",
+        values
+      );
+      if (response.data.id) {
+        router.push("/logIn");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   const form = useForm<z.infer<typeof usernameSchema>>({
     resolver: zodResolver(usernameSchema),
@@ -44,12 +52,7 @@ export const Step2 = () => {
       "signUp",
       JSON.stringify({ ...userInfo, ...form.getValues() })
     );
-    console.log(
-      typeof window !== "undefined"
-        ? JSON.parse(localStorage.getItem("signUp") || "")
-        : {}
-    );
-
+    localStorage.removeItem("signUp");
     handleSignUp(
       typeof window !== "undefined"
         ? JSON.parse(localStorage.getItem("signUp") || "")

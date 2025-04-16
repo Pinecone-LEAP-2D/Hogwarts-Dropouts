@@ -16,12 +16,15 @@ import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { uploadImageToCloudinary } from "@/app/(home)/view/_components/SelectCoverImage";
 
 export const CreateProfile = (props: {
   setPage: Dispatch<SetStateAction<number>>;
 }) => {
   const { setPage } = props;
+  const [uploadImg, setUploadImg] = useState<File>();
+
   const userId =
     typeof window !== "undefined"
       ? parseInt(localStorage.getItem("userId") || "")
@@ -43,14 +46,17 @@ export const CreateProfile = (props: {
     socialMediaURL: string;
   }) => {
     const response = await axios.post("http://localhost:4000/profile", values);
-    console.log(response.data);
     if (response.data.id) {
       setPage(2);
     }
   };
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {
     try {
-      await createNewProfile({ ...values, userId: userId });
+      await createNewProfile({
+        ...values,
+        avatarImage: await uploadImageToCloudinary(uploadImg!),
+        userId: userId,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -58,8 +64,11 @@ export const CreateProfile = (props: {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const objectUrl = URL.createObjectURL(file);
-      form.setValue("avatarImage", objectUrl);
+      setUploadImg(file);
+      const reader = new FileReader();
+      reader.onload = () =>
+        form.setValue("avatarImage", reader.result as string);
+      reader.readAsDataURL(file);
     }
   };
 

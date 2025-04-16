@@ -44,11 +44,8 @@ export const ProfileProvider = ({
       const response = await axios.get(
         `http://localhost:4000/profile/?currentUser=${userId}`
       );
-      console.log(response.data);
       if (!response.data) {
         router.push("/profile");
-      } else {
-        router.push("/home");
       }
       return response.data;
     },

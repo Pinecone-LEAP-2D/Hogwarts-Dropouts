@@ -29,6 +29,8 @@ const countris = [
   "United Kingdom",
 ];
 export const SetPay = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof payInfoSchema>>({
     resolver: zodResolver(payInfoSchema),
     defaultValues: {
@@ -52,25 +54,26 @@ export const SetPay = () => {
       typeof window !== "undefined"
         ? parseInt(localStorage.getItem("userId") || "")
         : 0;
-    console.log(values);
-
-    // const response = await axios.post("http://localhost:4000/bank-acc", {
-    //   userId: userId,
-    //   ...values,
-    // });
-    // console.log(response.data);
+    try {
+      const response = await axios.post("http://localhost:4000/bank-acc", {
+        userId: userId,
+        ...values,
+      });
+      if (response.data.id) {
+        router.push("/home");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   const onSubmit = async (values: z.infer<typeof payInfoSchema>) => {
-    console.log(values);
     await addNewCard({
       expiryDate: form.getValues("expires") + "/" + form.getValues("year"),
       country: values.country,
       firstName: values.firstName,
       lastName: values.lastName,
-      cardNumber: values.cardNumber,
+      cardNumber: values.cardNumber.toString(),
     });
-    const router = useRouter();
-    router.push("/home");
   };
 
   return (
@@ -249,7 +252,10 @@ export const SetPay = () => {
           />
         </div>
         <div className="w-full flex justify-end">
-          <Button className="w-1/2" type="submit">
+          <Button
+            className="w-1/2"
+            type="submit"
+            onClick={() => onSubmit(form.getValues())}>
             Continue
           </Button>
         </div>

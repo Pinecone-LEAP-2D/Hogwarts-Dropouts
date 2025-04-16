@@ -3,9 +3,9 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { DonationAmount } from "@/app/pro/_components/DonationAmount";
-import { AboutUserInfo } from "@/app/pro/_components/AboutUserInfo";
-import { SelectCoverImage } from "@/app/pro/_components/SelectCoverImage";
+import { DonationAmount } from "../../view/_components/DonationAmount";
+import { AboutUserInfo } from "../../view/_components/AboutUserInfo";
+import { SelectCoverImage } from "../../view/_components/SelectCoverImage";
 import axios from "axios";
 import { ProfileType } from "@/providers/ProfileProvider";
 
@@ -18,7 +18,6 @@ export default function Home() {
     const response = await axios.get(
       `http://localhost:4000/profile/view/${username}`
     );
-    console.log(response.data);
     setUser(response.data);
   };
 
