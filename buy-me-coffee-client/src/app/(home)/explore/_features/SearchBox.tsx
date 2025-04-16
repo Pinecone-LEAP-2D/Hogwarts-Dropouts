@@ -14,7 +14,6 @@ export const SearchBox = (props: {
     const response = await axios.get(
       `http://localhost:4000/profile/explore?name=${value}`
     );
-    console.log(response.data);
     setProfiles(response.data);
   };
   const handleSearchValueChange = async (e: string) => {

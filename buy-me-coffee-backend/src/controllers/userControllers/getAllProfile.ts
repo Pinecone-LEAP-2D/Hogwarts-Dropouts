@@ -19,7 +19,6 @@ export const getAllProfile = async (req: Request, res: Response) => {
           : undefined,
       });
 
-      console.log(allProfiles);
       res.status(200).send(allProfiles);
     } catch (error) {
       console.error("Error fetching profiles:", error);
@@ -33,7 +32,6 @@ export const getAllProfile = async (req: Request, res: Response) => {
   } else {
     try {
       const allProfile = await prisma.profile.findMany();
-      console.log(allProfile);
       res.send(allProfile);
     } catch (error) {
       console.error("Error fetching profiles:", error);
