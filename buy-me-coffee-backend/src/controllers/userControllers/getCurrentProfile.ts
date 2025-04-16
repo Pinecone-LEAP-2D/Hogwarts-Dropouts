@@ -17,10 +17,14 @@ export const getCurrentProfile = async (req: Request, res: Response) => {
         userId: parseInt(currentUser, 10),
       },
     });
-    res.send({
-      ...user,
-      bankCards: bankAccs,
-    });
+    if (user) {
+      res.send({
+        ...user,
+        bankCards: bankAccs,
+      });
+    } else {
+      res.send(null);
+    }
   } catch (error) {
     res.send({
       error: true,

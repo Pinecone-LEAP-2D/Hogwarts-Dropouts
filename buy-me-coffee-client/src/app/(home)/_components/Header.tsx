@@ -8,7 +8,7 @@ import {
 } from "@radix-ui/react-popover";
 import { useProfile } from "@/providers/ProfileProvider";
 export const Header = () => {
-  const { user } = useProfile();
+  const { user, handleLogout } = useProfile();
   return (
     <div className="flex p-5 justify-between px-15 w-full fixed top-0 bg-white z-40 ">
       <div className="flex font-extrabold gap-2">
@@ -16,14 +16,11 @@ export const Header = () => {
         <p>Buy Me Coffee</p>
       </div>
       <Popover>
-        <PopoverTrigger asChild>
+        <PopoverTrigger>
           <div className="flex gap-10 items-center">
             <div className="flex gap-2 items-center">
               <Avatar>
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
+                <AvatarImage src={user.avatarImage} alt="@shadcn" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <p>{user?.name}</p>
@@ -31,8 +28,8 @@ export const Header = () => {
             <ChevronDown size={15} />
           </div>
         </PopoverTrigger>
-        <PopoverContent className="w-80" align="end">
-          <Button>Log out</Button>
+        <PopoverContent className="p-5" align="center">
+          <Button onClick={handleLogout}>Log out</Button>
         </PopoverContent>
       </Popover>
     </div>

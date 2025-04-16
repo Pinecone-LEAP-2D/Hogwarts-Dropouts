@@ -19,6 +19,8 @@ import {
 import { Input } from "@/components/ui/input";
 import moment from "moment";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 const countris = [
   "United States",
   "Australia",
@@ -27,6 +29,8 @@ const countris = [
   "United Kingdom",
 ];
 export const SetPay = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof payInfoSchema>>({
     resolver: zodResolver(payInfoSchema),
     defaultValues: {
@@ -34,24 +38,49 @@ export const SetPay = () => {
       firstName: "",
       lastName: "",
       cardNumber: "",
-      expires: "", // Default to the current date
-      cvc: 0, // Default CVC value (or adjust as needed)
+      expires: "",
+      cvc: 0,
       year: "",
     },
   });
-  const onSubmit = (values: z.infer<typeof payInfoSchema>) => {
-    console.log(values);
-    console.log("success");
+  const addNewCard = async (values: {
+    country: string;
+    firstName: string;
+    lastName: string;
+    cardNumber: string;
+    expiryDate: string;
+  }) => {
+    const userId =
+      typeof window !== "undefined"
+        ? parseInt(localStorage.getItem("userId") || "")
+        : 0;
+    try {
+      const response = await axios.post("http://localhost:4000/bank-acc", {
+        userId: userId,
+        ...values,
+      });
+      if (response.data.id) {
+        router.push("/home");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const cvc = form.watch("cvc");
-  console.log(cvc);
+  const onSubmit = async (values: z.infer<typeof payInfoSchema>) => {
+    await addNewCard({
+      expiryDate: form.getValues("expires") + "/" + form.getValues("year"),
+      country: values.country,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      cardNumber: values.cardNumber.toString(),
+    });
+  };
 
   return (
     <FormProvider {...form}>
       <form
         className="space-y-8 p-10 py-40"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
+        onSubmit={form.handleSubmit(onSubmit)}>
         <div>
           <p className="font-bold text-3xl">How would you like to be paid? </p>
           <p className="text-gray-300">Enter location and payment details</p>
@@ -66,8 +95,7 @@ export const SetPay = () => {
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                  defaultValue={field.value}>
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -152,8 +180,7 @@ export const SetPay = () => {
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                    defaultValue={field.value}>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Month" />
                     </SelectTrigger>
@@ -162,8 +189,11 @@ export const SetPay = () => {
                         return (
                           <SelectItem
                             key={index}
-                            value={(index + 1).toString()}
-                          >
+                            value={
+                              index < 10
+                                ? "0" + (index + 1).toString()
+                                : (index + 1).toString()
+                            }>
                             {index + 1} сар
                           </SelectItem>
                         );
@@ -184,20 +214,18 @@ export const SetPay = () => {
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                    defaultValue={field.value}>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Year" />
                     </SelectTrigger>
                     <SelectContent>
-                      {Array.from({ length: 5 }).map((_, index) => {
+                      {Array.from({ length: 6 }).map((_, index) => {
                         return (
                           <SelectItem
                             key={index}
                             value={(
                               parseInt(moment().format("YYYY")) + index
-                            ).toString()}
-                          >
+                            ).toString()}>
                             {parseInt(moment().format("YYYY")) + index}
                           </SelectItem>
                         );
@@ -224,7 +252,10 @@ export const SetPay = () => {
           />
         </div>
         <div className="w-full flex justify-end">
-          <Button className="w-1/2" type="submit">
+          <Button
+            className="w-1/2"
+            type="submit"
+            onClick={() => onSubmit(form.getValues())}>
             Continue
           </Button>
         </div>
