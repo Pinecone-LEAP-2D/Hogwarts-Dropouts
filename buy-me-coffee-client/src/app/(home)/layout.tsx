@@ -4,6 +4,7 @@ import { Header } from "./_components/Header";
 import { Navigation } from "./_components/Navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { DonationProvider } from "@/providers/DonationProvider";
+
 const queryClient = new QueryClient();
 export default function RootLayout({
   children,
