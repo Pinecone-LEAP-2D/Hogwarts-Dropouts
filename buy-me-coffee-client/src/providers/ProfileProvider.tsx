@@ -3,8 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext } from "react";
-type ProfileType = {
-  id: string;
+export type ProfileType = {
+  id: number;
   name: string | undefined;
   avatarImage: string | undefined;
   socialMediaURL: string | undefined;
@@ -44,8 +44,9 @@ export const ProfileProvider = ({
       const response = await axios.get(
         `http://localhost:4000/profile/?currentUser=${userId}`
       );
-      console.log(response.data);
-
+      if (!response.data) {
+        router.push("/profile");
+      }
       return response.data;
     },
   });

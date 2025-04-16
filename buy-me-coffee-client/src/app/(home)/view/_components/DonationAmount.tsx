@@ -1,12 +1,13 @@
 "use client";
 import { Coffee } from "lucide-react";
-import { Button } from "../../../components/ui/button";
-import { Input } from "../../../components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useDonations } from "@/providers/DonationProvider";
 import { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { ProfileType, useProfile } from "@/providers/ProfileProvider";
 type Donation = {
   amount: number;
   specialMessage: string;
@@ -15,8 +16,10 @@ type Donation = {
   donorId: number;
 };
 
-export const DonationAmount = () => {
+export const DonationAmount = (props: { currentUser: ProfileType }) => {
+  const { currentUser } = props;
   const { createDonations } = useDonations();
+  const { user } = useProfile();
   const [selectAmount, setSelectAmount] = useState<number | null>(null);
 
   const formik = useFormik({
@@ -41,8 +44,8 @@ export const DonationAmount = () => {
           amount: selectAmount,
           specialMessage: values.message,
           socialURLOrBuyMeACoffee: values.socialURL,
-          recipientId: 1,
-          donorId: 1,
+          recipientId: currentUser.id,
+          donorId: user.id,
         });
 
         alert("Donation sent! 🎉");
@@ -59,7 +62,7 @@ export const DonationAmount = () => {
       onSubmit={formik.handleSubmit}
       className="w-[600px] h-[500px] bg-white outline-1 rounded-2xl p-5 space-y-5">
       <div>
-        <p className="font-bold text-xl">Buy Jake a Coffee</p>
+        <p className="font-bold text-xl">Buy {user?.name} a Coffee</p>
       </div>
       <div>
         <p className="font-medium">Select amount:</p>

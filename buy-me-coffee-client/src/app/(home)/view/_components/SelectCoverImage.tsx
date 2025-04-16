@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Camera } from "lucide-react";
+import { ProfileType, useProfile } from "@/providers/ProfileProvider";
 
 const CLOUDINARY_CLOUD_NAME = "dnxg6ckrh";
 const CLOUDINARY_UPLOAD_PRESET = "ml_default";
@@ -45,10 +46,14 @@ const saveProfile = async (values: {
   }
 };
 
-export const SelectCoverImage = () => {
+export const SelectCoverImage = (props: { currentUser: ProfileType }) => {
+  const { user } = useProfile();
+  const { currentUser } = props;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | undefined>(
+    currentUser?.backgroundImage
+  );
   const [isUploading, setIsUploading] = useState(false);
 
   const handleFileChange = async (
@@ -67,11 +72,13 @@ export const SelectCoverImage = () => {
 
     if (uploadedUrl) {
       setImageUrl(uploadedUrl);
+      if (!currentUser) return null;
+
       await saveProfile({
-        profileId: 9,
+        profileId: currentUser.id,
         successMessage: "Profile updated successfully",
         backgroundImage: uploadedUrl,
-      }); // Example, update profileId and message as needed
+      });
     }
   };
 
@@ -94,27 +101,29 @@ export const SelectCoverImage = () => {
         accept="image/*"
         ref={fileInputRef}
         onChange={handleFileChange}
-        style={{ display: "none" }}
+        hidden
       />
 
-      <div
-        className={`absolute z-10 ${
-          imageUrl
-            ? "top-4 right-4" // Top-right when there's an image
-            : " flex items-center left-1/2  transform -translate-x-1/2" // Center when no image
-        }`}>
-        <Button
-          className="flex gap-2 bg-white/80 hover:bg-white text-black"
-          onClick={handleButtonClick}
-          disabled={isUploading}>
-          <Camera className="w-4 h-4" />
-          {isUploading
-            ? "Uploading..."
-            : imageUrl
-            ? "Change cover image"
-            : "Add a cover image"}
-        </Button>
-      </div>
+      {currentUser.id === user.id && (
+        <div
+          className={`absolute z-10 ${
+            imageUrl
+              ? "top-4 right-4" // Top-right when there's an image
+              : " flex items-center left-1/2  transform -translate-x-1/2" // Center when no image
+          }`}>
+          <Button
+            className="flex gap-2 bg-white/80 hover:bg-white text-black"
+            onClick={handleButtonClick}
+            disabled={isUploading}>
+            <Camera className="w-4 h-4" />
+            {isUploading
+              ? "Uploading..."
+              : imageUrl
+              ? "Change cover image"
+              : "Add a cover image"}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

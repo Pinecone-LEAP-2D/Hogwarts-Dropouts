@@ -5,22 +5,34 @@ import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string().min(6, "Too Short!").required("Password is required"),
 });
-const handleLogin = async (values: { email: string; password: string }) => {
-  console.log(values);
-  const response = await axios.post(
-    "http://localhost:4000/auth/sign-in",
-    values
-  );
-  localStorage.setItem("token", response.data.token);
-  localStorage.setItem("userId", JSON.stringify(response.data.userId));
-  console.log(response.data);
-};
+
 export default function LoginPage() {
+  const router = useRouter();
+  const handleLogin = async (values: { email: string; password: string }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/auth/sign-in",
+        values
+      );
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", JSON.stringify(response.data.userId));
+      if (response.data.success) {
+        router.push("/home");
+      }
+    } catch (error) {}
+    const response = await axios.post(
+      "http://localhost:4000/auth/sign-in",
+      values
+    );
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("userId", JSON.stringify(response.data.userId));
+  };
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
       <h2 className="text-2xl font-bold mb-6 text-center">Welcome back</h2>

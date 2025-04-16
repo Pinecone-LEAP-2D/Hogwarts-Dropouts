@@ -16,7 +16,7 @@ import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { useProfile } from "@/providers/ProfileProvider";
-import { uploadImageToCloudinary } from "@/app/pro/_components/SelectCoverImage";
+import { uploadImageToCloudinary } from "../../view/_components/SelectCoverImage";
 import { useState } from "react";
 export const EditProfile = () => {
   const { user, updateProfile } = useProfile();
@@ -31,13 +31,11 @@ export const EditProfile = () => {
     },
   });
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {
-    console.log(values);
-    console.log("success");
     if (!uploadImg) return;
     await updateProfile({
       ...values,
       avatarImage: await uploadImageToCloudinary(uploadImg),
-      id: "",
+      id: 0,
       backgroundImage: undefined,
       successMessage: undefined,
       bankCards: [],
