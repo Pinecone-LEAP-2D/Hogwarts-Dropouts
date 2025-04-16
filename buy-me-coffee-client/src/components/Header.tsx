@@ -8,10 +8,10 @@ export const Header = () => {
         <p className="text-xl">Buy Me Coffee</p>
       </div>
       <div className="flex gap-2">
-        <Button className="p-7 rounded-full bg-white text-black hover:bg-amber-200 font-bold text-lg">
+        <Button className="p-7 rounded-full bg-amber-300 text-black hover:bg-amber-200 font-bold text-lg">
           Log in
         </Button>
-        <Button className="p-7 rounded-full bg-white text-black hover:bg-amber-200 font-bold text-lg">
+        <Button className="p-7 rounded-full bg-white border-amber-300 border text-black hover:bg-amber-200 font-bold text-lg">
           Sign Up
         </Button>
       </div>
