@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const { user } = useProfile();
   const [height, setHeight] = useState(0);
+
   useEffect(() => {
     const updateHeight = () => {
       setHeight(window.innerHeight - 100);
