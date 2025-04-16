@@ -11,11 +11,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { useProfile } from "@/providers/ProfileProvider";
 import { MessageType } from "@/validations/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { z } from "zod";
 
 export const SuccessMessage = () => {
   const { user, updateProfile } = useProfile();
+  const [isSaving, setIsSaving] = useState(false);
   const form = useForm<z.infer<typeof MessageType>>({
     resolver: zodResolver(MessageType),
     defaultValues: {
@@ -24,16 +27,23 @@ export const SuccessMessage = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof MessageType>) => {
-    await updateProfile({
-      ...values,
-      id: "",
-      name: undefined,
-      avatarImage: undefined,
-      socialMediaURL: undefined,
-      about: undefined,
-      backgroundImage: undefined,
-      bankCards: [],
-    });
+    setIsSaving(true);
+    try {
+      await updateProfile({
+        ...values,
+        id: "",
+        name: undefined,
+        avatarImage: undefined,
+        socialMediaURL: undefined,
+        about: undefined,
+        backgroundImage: undefined,
+        bankCards: [],
+      });
+    } catch (Error) {
+      console.error("error", Error);
+    } finally {
+      setIsSaving(false);
+    }
   };
   return (
     <FormProvider {...form}>
@@ -57,8 +67,8 @@ export const SuccessMessage = () => {
               </FormItem>
             )}
           />
-          <Button className="w-full" type="submit">
-            Save changes
+          <Button type="submit" className="w-full" disabled={isSaving}>
+            {isSaving ? "Saving..." : "Save changes"}
           </Button>
         </div>
       </form>

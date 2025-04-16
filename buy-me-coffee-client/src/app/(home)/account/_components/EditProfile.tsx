@@ -21,26 +21,38 @@ import { useState } from "react";
 export const EditProfile = () => {
   const { user, updateProfile } = useProfile();
   const [uploadImg, setUploadImg] = useState<File>();
+  const [isSaving, setIsSaving] = useState(false);
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      name: user.name,
-      about: user.about,
-      avatarImage: user.avatarImage,
-      socialMediaURL: user.socialMediaURL,
+      name: user?.name,
+      about: user?.about,
+      avatarImage: user?.avatarImage,
+      socialMediaURL: user?.socialMediaURL,
     },
   });
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {
-    if (!uploadImg) return;
-    await updateProfile({
-      ...values,
-      avatarImage: await uploadImageToCloudinary(uploadImg),
-      id: 0,
-      backgroundImage: undefined,
-      successMessage: undefined,
-      bankCards: [],
-    });
+    setIsSaving(true);
+    try {
+      const avatarUrl = uploadImg
+        ? await uploadImageToCloudinary(uploadImg)
+        : user.avatarImage;
+
+      await updateProfile({
+        ...values,
+        avatarImage: avatarUrl,
+        id: 0,
+        backgroundImage: undefined,
+        successMessage: undefined,
+        bankCards: [],
+      });
+    } catch (err) {
+      console.error("Error updating profile:", err);
+    } finally {
+      setIsSaving(false);
+    }
   };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -61,7 +73,7 @@ export const EditProfile = () => {
           <FormField
             control={form.control}
             name="avatarImage"
-            defaultValue={user.avatarImage}
+            defaultValue={user?.avatarImage}
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="image">
@@ -99,7 +111,7 @@ export const EditProfile = () => {
           <FormField
             control={form.control}
             name="name"
-            defaultValue={user.name}
+            defaultValue={user?.name}
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="name">Name</FormLabel>
@@ -150,11 +162,8 @@ export const EditProfile = () => {
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            onClick={() => onSubmit(form.getValues())}
-            className="w-full">
-            Save changes
+          <Button type="submit" className="w-full" disabled={isSaving}>
+            {isSaving ? "Saving..." : "Save changes"}
           </Button>
         </div>
       </form>
