@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { SwitchPageButton } from "../signUp/_components/SwitchPageButton";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -37,11 +38,7 @@ export default function LoginPage() {
   return (
     <>
       <div className="flex items-end justify-end p-4">
-        <Link href={"/signUp"}>
-          <Button className="p-7 rounded-full bg-white text-black hover:bg-amber-200 font-bold text-lg">
-            Sign Up
-          </Button>
-        </Link>
+        <SwitchPageButton name="Sign up" link="signUp" />
       </div>
       <div className="flex flex-col items-center justify-center w-full h-screen">
         <h2 className="text-2xl font-bold mb-6 text-center">Welcome back</h2>
