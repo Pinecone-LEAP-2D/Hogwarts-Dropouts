@@ -5,7 +5,13 @@ import { updateBankCard } from "../controllers/bankAccControllers/updateBankAcc"
 import { getUserId } from "../controllers/bankAccControllers/getBankAcc";
 import { cardExist } from "../middlewares/bankCardMiddleware/cardExist";
 import { idValid } from "../middlewares/bankCardMiddleware/checkUpdateValueExist";
+import { cardNumberExist } from "../middlewares/bankCardMiddleware/cardNumberExist";
 export const bankAccRouter = express.Router();
-bankAccRouter.post("/bank-acc", checkAllValueExist, createBankCard);
+bankAccRouter.post(
+  "/bank-acc",
+  checkAllValueExist,
+  cardNumberExist,
+  createBankCard
+);
 bankAccRouter.put("/bank-acc", idValid, cardExist, updateBankCard);
 bankAccRouter.get("/bank-acc/:userId", getUserId);

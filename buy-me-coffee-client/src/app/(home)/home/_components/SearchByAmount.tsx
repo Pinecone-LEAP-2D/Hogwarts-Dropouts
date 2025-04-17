@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SmallLoader } from "@/components/Loader";
+import { useProfile } from "@/providers/ProfileProvider";
 
 export const SearchByAmount = () => {
   const { donations, searchDonations } = useDonations();
@@ -28,7 +29,7 @@ export const SearchByAmount = () => {
       setLoading(false);
     }
   };
-
+  const { user } = useProfile();
   const hasSupporters = Array.isArray(donations) && donations.length > 0;
 
   return (
@@ -53,7 +54,9 @@ export const SearchByAmount = () => {
             {!hasSupporters && !loading && (
               <div className="flex flex-col border items-center justify-center text-center text-gray-500 space-y-2">
                 <Heart className="w-6 h-6" />
-                <p className="font-medium">Be the first one to support Jake</p>
+                <p className="font-medium">
+                  Be the first one to support {user?.name}
+                </p>
               </div>
             )}
 
@@ -65,7 +68,7 @@ export const SearchByAmount = () => {
                       <div className="flex gap-4">
                         <img
                           className="rounded-full"
-                          src="/AvatarImage.png"
+                          src={"/AvatarImage.png"}
                           width={48}
                           height={48}
                           alt="Jake's avatar"

@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SwitchPageButton } from "../signUp/_components/SwitchPageButton";
 
@@ -16,6 +15,7 @@ const LoginSchema = Yup.object().shape({
 
 export default function LoginPage() {
   const router = useRouter();
+  localStorage.removeItem("signUp");
   const handleLogin = async (values: { email: string; password: string }) => {
     try {
       const response = await axios.post(

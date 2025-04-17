@@ -10,9 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useProfile } from "@/providers/ProfileProvider";
 
 export const TotalEarning = () => {
   const { totalEarning, fetchTotalEarnings } = useDonations();
+  const { user } = useProfile();
   useEffect(() => {
     fetchTotalEarnings(1);
   }, []);
@@ -22,12 +24,12 @@ export const TotalEarning = () => {
         <div className="flex items-center gap-4">
           <img
             className="rounded-full"
-            src="/AvatarImage.png"
+            src={user?.avatarImage}
             width={48}
             height={48}
-            alt="Jake's avatar"
+            alt="User's avatar"
           />
-          <p className="font-bold">Jake</p>
+          <p className="font-bold">{user?.name}</p>
         </div>
         <Button className="bg-[#F4F4F5] text-black">Share page link</Button>
       </div>

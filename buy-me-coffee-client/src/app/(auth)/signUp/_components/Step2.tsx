@@ -1,3 +1,4 @@
+"use client";
 import {
   FormField,
   FormItem,
@@ -12,8 +13,9 @@ import { z } from "zod";
 import { SubmitButton } from "./SubmitButton";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
+import { useState } from "react";
 export const Step2 = () => {
+  const [showAlert, setShowAlert] = useState(true);
   const usernameSchema = z.object({
     email: z.string().email("Invalid email"),
     password: z.string().min(4, "Password must be at least 4 characters"),
@@ -29,8 +31,14 @@ export const Step2 = () => {
         "http://localhost:4000/auth/sign-up",
         values
       );
+      console.log(response.data);
+
       if (response.data.id) {
         router.push("/logIn");
+      } else if (response.data.message.includes("name")) {
+        alert("Username is exist. Please enter new one.");
+      } else if (response.data.message.includes("email")) {
+        alert("Email is exist. Please enter new one.");
       }
     } catch (error) {
       console.log(error);
@@ -52,7 +60,6 @@ export const Step2 = () => {
       "signUp",
       JSON.stringify({ ...userInfo, ...form.getValues() })
     );
-    localStorage.removeItem("signUp");
     handleSignUp(
       typeof window !== "undefined"
         ? JSON.parse(localStorage.getItem("signUp") || "")
@@ -66,6 +73,7 @@ export const Step2 = () => {
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-1/3 space-y-6">
+          <div>{showAlert && <div></div>}</div>
           <FormField
             control={form.control}
             name="email"

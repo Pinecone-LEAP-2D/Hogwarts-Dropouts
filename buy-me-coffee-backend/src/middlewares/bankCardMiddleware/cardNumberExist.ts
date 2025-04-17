@@ -1,25 +1,23 @@
 import { Response, Request, NextFunction } from "express";
 import prisma from "../../prismaClient";
-export const userNotExist = async (
+export const cardNumberExist = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { email } = req.body;
+  const { cardNumber } = req.body;
   try {
-    const isExist = await prisma.user.findUnique({
+    const numberExist = await prisma.bankCard.findUnique({
       where: {
-        email: email,
+        cardNumber: cardNumber,
       },
     });
-    if (!isExist) {
-      next();
-    } else {
+    if (numberExist) {
       res.send({
         success: false,
-        message: "User email exist",
+        message: "Card number exist",
       });
-    }
+    } else next();
   } catch (error) {
     res.status(500).send({
       error: true,
