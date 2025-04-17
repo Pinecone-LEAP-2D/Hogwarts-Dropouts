@@ -40,7 +40,7 @@ export const DonationAmount = (props: { currentUser: ProfileType }) => {
           specialMessage: values.message,
           socialURLOrBuyMeACoffee: values.socialURL,
           recipientId: currentUser.userId,
-          donorId: user.id,
+          donorId: user.userId,
         });
 
         alert("Donation sent! 🎉");

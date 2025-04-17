@@ -2,7 +2,7 @@ import prisma from "../../prismaClient";
 import { Request, Response } from "express";
 
 export const getReceivedDonation = async (req: Request, res: Response) => {
-  const { userId } = req.query;
+  const { userId } = req.params;
 
   try {
     const receivedDonations = await prisma.donations.findMany({
@@ -10,7 +10,17 @@ export const getReceivedDonation = async (req: Request, res: Response) => {
         recipientId: Number(userId),
       },
       include: {
-        donor: true,
+        donor: {
+          select: {
+            Profile: {
+              select: {
+                avatarImage: true,
+                name: true,
+                socialMediaURL: true,
+              },
+            },
+          },
+        },
       },
     });
 

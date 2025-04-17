@@ -20,7 +20,6 @@ export const SearchBox = (props: {
     setLoading(false);
   };
   const handleSearchValueChange = async (e: string) => {
-    console.log(e);
     setSearchValue(e);
     await getPros(e);
   };

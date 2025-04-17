@@ -33,14 +33,8 @@ const saveProfile = async (values: {
   successMessage: string;
   backgroundImage: string;
 }) => {
-  console.log(values.backgroundImage);
-
   try {
     const response = await axios.put("http://localhost:4000/profile", values);
-
-    if (response.data.success) {
-      console.log("Profile updated successfully");
-    }
   } catch (err) {
     console.error("Error updating profile", err);
   }
@@ -51,7 +45,7 @@ export const SelectCoverImage = (props: { currentUser: ProfileType }) => {
   const { currentUser } = props;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageUrl, setImageUrl] = useState<string | undefined>(
-    currentUser.backgroundImage
+    currentUser?.backgroundImage
   );
   const [previewImage, setPreviewImage] = useState<string | undefined>(
     currentUser?.backgroundImage

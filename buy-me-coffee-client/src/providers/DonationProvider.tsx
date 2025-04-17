@@ -2,7 +2,6 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import { getReceivedDonations } from "@/app/utils/Axios";
 import axios from "axios";
-import { useProfile } from "./ProfileProvider";
 import { Loader } from "@/components/Loader";
 import moment from "moment";
 type receivedDonations = {
@@ -17,6 +16,11 @@ type receivedDonations = {
     id: number;
     email: string;
     username: string;
+    Profile: {
+      name: string;
+      avatarImage: string;
+      socialMediaURL: string;
+    };
   };
 };
 export type Donation = {
@@ -48,29 +52,17 @@ export const DonationProvider = ({
 }) => {
   const [donations, setDonations] = useState<receivedDonations[]>([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useProfile();
-  // const fetchDonations = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const data = await getReceivedDonations();
-  //     setDonations(data || []);
-  //   } catch (error) {
-  //     console.error("Error fetching donations:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const userId =
+    typeof window !== "undefined" ? localStorage.getItem("userId") : 0;
   const fetchDonations = async () => {
     try {
       setLoading(true);
-      const data = await getReceivedDonations(user.id);
-      console.log(data, "dataaaaa");
+      const data = await getReceivedDonations();
 
-      const formattedData = data.map((donation: receivedDonations) => ({
+      const formattedData = data?.map((donation: receivedDonations) => ({
         ...donation,
         createdAt: moment().startOf("day").fromNow(),
       }));
-      console.log(formattedData);
 
       setDonations(formattedData || []);
     } catch (error) {
@@ -93,9 +85,7 @@ export const DonationProvider = ({
   };
   const [totalEarning, setTotalEarnings] = useState<number>(0);
 
-  // const { userId } = useProfile();
-
-  const fetchTotalEarnings = async (userId: number) => {
+  const fetchTotalEarnings = async () => {
     try {
       const res = await axios.get(
         `http://localhost:4000/donation/total-earnings/${userId}`
@@ -106,22 +96,26 @@ export const DonationProvider = ({
     }
   };
 
-  const { userId } = useProfile();
   const searchDonations = async (filters: {
     amount?: string;
     date?: string;
   }) => {
     try {
-      // setLoading(true);
       const params = new URLSearchParams(filters).toString();
       const res = await axios.get(
         `http://localhost:4000/donation/search/${userId}?${params}`
       );
-      setDonations(res.data.donations || []);
+
+      const formattedData = res.data.donations?.map(
+        (donation: receivedDonations) => ({
+          ...donation,
+          createdAt: moment().startOf("day").fromNow(),
+        })
+      );
+
+      setDonations(formattedData || []);
     } catch (err) {
       console.error("Error searching donations:", err);
-    } finally {
-      // setLoading(false);
     }
   };
 

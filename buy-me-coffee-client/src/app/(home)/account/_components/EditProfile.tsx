@@ -34,23 +34,23 @@ export const EditProfile = () => {
     },
   });
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {
-
     setIsSaving(true);
     try {
       const avatarUrl = uploadImg
         ? await uploadImageToCloudinary(uploadImg)
         : user.avatarImage;
 
-     await updateProfile({
-      ...values,
-      avatarImage: uploadImg
-        ? await uploadImageToCloudinary(uploadImg!)
-        : user.avatarImage,
-      id: 0,
-      backgroundImage: undefined,
-      successMessage: undefined,
-      bankCards: [],
-    });
+      await updateProfile({
+        ...values,
+        avatarImage: uploadImg
+          ? await uploadImageToCloudinary(uploadImg!)
+          : user.avatarImage,
+        id: 0,
+        backgroundImage: undefined,
+        successMessage: undefined,
+        bankCards: [],
+        userId: 0,
+      });
     } catch (err) {
       console.error("Error updating profile:", err);
     } finally {
@@ -67,7 +67,6 @@ export const EditProfile = () => {
         form.setValue("avatarImage", reader.result as string);
       reader.readAsDataURL(file);
     }
-    console.log(file);
   };
 
   return (

@@ -31,7 +31,6 @@ export const Step2 = () => {
         "http://localhost:4000/auth/sign-up",
         values
       );
-      console.log(response.data);
 
       if (response.data.id) {
         router.push("/logIn");
