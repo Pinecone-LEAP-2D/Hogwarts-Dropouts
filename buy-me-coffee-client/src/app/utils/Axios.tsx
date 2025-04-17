@@ -1,8 +1,10 @@
 import axios from "axios";
 
-export const getReceivedDonations = async () => {
+export const getReceivedDonations = async (userId: number) => {
   try {
-    const response = await axios.get("http://localhost:4000/donation");
+    const response = await axios.get(
+      `http://localhost:4000/donation/${userId} `
+    );
     return response.data || [];
   } catch (err) {
     console.log("error while getting received donations", err);

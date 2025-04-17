@@ -82,7 +82,12 @@ export const SearchByAmount = () => {
                           </a>
                         </div>
                       </div>
-                      <p className="font-bold text-lg">+ ${donation.amount}</p>
+                      <div className="flex flex-col gap-4">
+                        <p className="font-bold text-lg">
+                          + ${donation.amount}
+                        </p>
+                        <p>{donation.createdAt}</p>
+                      </div>
                     </div>
                     <div className="mt-4">
                       <p>{donation.specialMessage}</p>
