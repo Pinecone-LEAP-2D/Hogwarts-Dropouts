@@ -72,7 +72,7 @@ export const PaymentDetail = (props: {
   return (
     <FormProvider {...form}>
       <form
-        className="space-y-4 p-5 pt-5"
+        className="space-y-4 py-5 pt-5"
         onSubmit={form.handleSubmit(onSubmit)}>
         <div className=" space-y-4 p-5 border rounded-md">
           <p className="font-bold">Payment detail</p>

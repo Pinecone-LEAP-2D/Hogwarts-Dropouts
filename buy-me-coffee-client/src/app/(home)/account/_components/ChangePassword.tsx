@@ -26,7 +26,7 @@ export const ChangePassword = () => {
   };
   return (
     <FormProvider {...form}>
-      <form className="p-5 space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="py-5 space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-4 border p-5 rounded-md">
           <p className="font-bold">Set new password</p>
           <FormField

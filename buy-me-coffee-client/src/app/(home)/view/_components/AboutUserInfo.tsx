@@ -1,8 +1,8 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { useDonations } from "@/providers/DonationProvider";
 import { ProfileType, useProfile } from "@/providers/ProfileProvider";
 import { Heart } from "lucide-react";
+import { EditPro } from "./EditProfile";
 
 export const AboutUserInfo = (props: { currentUser: ProfileType }) => {
   const { donations, isLoading } = useDonations();
@@ -17,16 +17,15 @@ export const AboutUserInfo = (props: { currentUser: ProfileType }) => {
           <div className="flex items-center gap-4">
             <img
               className="rounded-full"
-              src="/AvatarImage.png"
+              src={user.avatarImage}
               width={48}
               height={48}
               alt="Jake's avatar"
             />
             <p className="font-bold">{currentUser?.name}</p>
           </div>
-          {user?.id === currentUser?.id && (
-            <Button className="bg-[#F4F4F5] text-black">Edit page</Button>
-          )}
+          {user.id === currentUser.id && <EditPro />}
+
         </div>
         <hr className="my-4" />
         <div>

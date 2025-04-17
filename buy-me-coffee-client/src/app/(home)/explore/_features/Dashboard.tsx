@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { ProfileType } from "@/providers/ProfileProvider";
 import { SmallLoader } from "@/components/Loader";
 
-export const Dashboard = () => {
+export const Dashboard = (props: { profiles: ProfileType[] }) => {
+  const { profiles } = props;
   const [allCreators, setAllCreators] = useState<ProfileType[]>([]);
   const [loading, setLoading] = useState(false);
   const getAllCreators = async () => {
@@ -21,12 +22,17 @@ export const Dashboard = () => {
     fetchData();
   }, []);
   return (
+
     <SmallLoader loading={loading}>
       <div className="flex flex-col gap-5">
-        {allCreators.map((creator, index) => {
+      {profiles.map((creator, index) => {
+        return <CreatorProfile key={index} creatorInfo={creator} />;
+      })}
+      {profiles.length == 0 &&
+        allCreators.map((creator, index) => {
           return <CreatorProfile key={index} creatorInfo={creator} />;
         })}
-      </div>
+    </div>
     </SmallLoader>
   );
 };

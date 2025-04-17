@@ -27,11 +27,12 @@ export const SuccessMessage = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof MessageType>) => {
+
     setIsSaving(true);
     try {
       await updateProfile({
         ...values,
-        id: "",
+        id: 0,
         name: undefined,
         avatarImage: undefined,
         socialMediaURL: undefined,
@@ -47,7 +48,7 @@ export const SuccessMessage = () => {
   };
   return (
     <FormProvider {...form}>
-      <form className="p-5 space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="py-5 space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-4 border p-5 rounded-md">
           <p className="font-bold">Success message</p>
           <FormField

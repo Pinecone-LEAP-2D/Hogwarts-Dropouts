@@ -8,6 +8,7 @@ import { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { ProfileType, useProfile } from "@/providers/ProfileProvider";
+import { usePathname } from "next/navigation";
 type Donation = {
   amount: number;
   specialMessage: string;
@@ -18,6 +19,7 @@ type Donation = {
 
 export const DonationAmount = (props: { currentUser: ProfileType }) => {
   const { currentUser } = props;
+  const pathName = usePathname();
   const { createDonations } = useDonations();
   const { user } = useProfile();
   const [selectAmount, setSelectAmount] = useState<number | null>(null);
@@ -114,7 +116,7 @@ export const DonationAmount = (props: { currentUser: ProfileType }) => {
         <Button
           type="submit"
           className="w-[560px]"
-          disabled={formik.isSubmitting}>
+          disabled={formik.isSubmitting || pathName.includes("view")}>
           {formik.isSubmitting ? "Sending..." : "Support"}
         </Button>
       </div>

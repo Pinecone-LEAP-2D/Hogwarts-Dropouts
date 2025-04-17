@@ -18,7 +18,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useProfile } from "@/providers/ProfileProvider";
 import { uploadImageToCloudinary } from "../../view/_components/SelectCoverImage";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 export const EditProfile = () => {
+  const pathName = usePathname();
   const { user, updateProfile } = useProfile();
   const [uploadImg, setUploadImg] = useState<File>();
   const [isSaving, setIsSaving] = useState(false);
@@ -32,20 +34,23 @@ export const EditProfile = () => {
     },
   });
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {
+
     setIsSaving(true);
     try {
       const avatarUrl = uploadImg
         ? await uploadImageToCloudinary(uploadImg)
         : user.avatarImage;
 
-      await updateProfile({
-        ...values,
-        avatarImage: avatarUrl,
-        id: 0,
-        backgroundImage: undefined,
-        successMessage: undefined,
-        bankCards: [],
-      });
+     await updateProfile({
+      ...values,
+      avatarImage: uploadImg
+        ? await uploadImageToCloudinary(uploadImg!)
+        : user.avatarImage,
+      id: 0,
+      backgroundImage: undefined,
+      successMessage: undefined,
+      bankCards: [],
+    });
     } catch (err) {
       console.error("Error updating profile:", err);
     } finally {
@@ -62,14 +67,18 @@ export const EditProfile = () => {
         form.setValue("avatarImage", reader.result as string);
       reader.readAsDataURL(file);
     }
+    console.log(file);
   };
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 p-5  ">
-        <p className="font-bold  text-3xl">My account</p>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4 py-5  z-10000">
         <div className="p-5 space-y-4 border rounded-md">
-          <p className="font-bold">Personal info</p>
+          {pathName.includes("acc") && (
+            <p className="font-bold">Personal info</p>
+          )}
           <FormField
             control={form.control}
             name="avatarImage"
