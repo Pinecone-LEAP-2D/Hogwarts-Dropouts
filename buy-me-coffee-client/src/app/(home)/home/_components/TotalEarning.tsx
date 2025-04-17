@@ -11,12 +11,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useProfile } from "@/providers/ProfileProvider";
+import { CopyUserURL } from "./CopyUserURL";
 
 export const TotalEarning = () => {
   const { totalEarning, fetchTotalEarnings } = useDonations();
   const { user } = useProfile();
   useEffect(() => {
-    fetchTotalEarnings(1);
+    fetchTotalEarnings(user?.id);
   }, []);
   return (
     <div className="w-[900px] h-[260px] space-y-5 border rounded-2xl p-8 bg-white">
@@ -31,7 +32,7 @@ export const TotalEarning = () => {
           />
           <p className="font-bold">{user?.name}</p>
         </div>
-        <Button className="bg-[#F4F4F5] text-black">Share page link</Button>
+        <CopyUserURL />
       </div>
       <hr className="my-4" />
       <div className="flex gap-4">
@@ -42,8 +43,8 @@ export const TotalEarning = () => {
               <SelectValue placeholder="Date" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="last 30 days">Last 30 days</SelectItem>
-              <SelectItem value="last 90 days">Last 90 days</SelectItem>
+              <SelectItem value="30">Last 30 days</SelectItem>
+              <SelectItem value="90">Last 90 days</SelectItem>
               <SelectItem value="all time">All time</SelectItem>
             </SelectContent>
           </Select>

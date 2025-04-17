@@ -7,14 +7,17 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 export const SearchBox = (props: {
   setProfiles: Dispatch<SetStateAction<ProfileType[]>>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const { setProfiles } = props;
+  const { setProfiles, setLoading } = props;
   const [searchValue, setSearchValue] = useState("");
   const getPros = async (value: string) => {
+    setLoading(true);
     const response = await axios.get(
       `http://localhost:4000/profile/explore?name=${value}`
     );
     setProfiles(response.data);
+    setLoading(false);
   };
   const handleSearchValueChange = async (e: string) => {
     console.log(e);
