@@ -9,13 +9,6 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { ProfileType, useProfile } from "@/providers/ProfileProvider";
 import { usePathname } from "next/navigation";
-type Donation = {
-  amount: number;
-  specialMessage: string;
-  socialURLOrBuyMeACoffee: string;
-  recipientId: number;
-  donorId: number;
-};
 
 export const DonationAmount = (props: { currentUser: ProfileType }) => {
   const { currentUser } = props;
@@ -46,7 +39,7 @@ export const DonationAmount = (props: { currentUser: ProfileType }) => {
           amount: selectAmount,
           specialMessage: values.message,
           socialURLOrBuyMeACoffee: values.socialURL,
-          recipientId: currentUser.id,
+          recipientId: currentUser.userId,
           donorId: user.id,
         });
 

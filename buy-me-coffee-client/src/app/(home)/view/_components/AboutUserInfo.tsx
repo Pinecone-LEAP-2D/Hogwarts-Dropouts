@@ -17,15 +17,14 @@ export const AboutUserInfo = (props: { currentUser: ProfileType }) => {
           <div className="flex items-center gap-4">
             <img
               className="rounded-full"
-              src={user.avatarImage}
+              src={user?.avatarImage}
               width={48}
               height={48}
               alt="Jake's avatar"
             />
             <p className="font-bold">{currentUser?.name}</p>
           </div>
-          {user.id === currentUser.id && <EditPro />}
-
+          {user?.id === currentUser?.id && <EditPro />}
         </div>
         <hr className="my-4" />
         <div>
