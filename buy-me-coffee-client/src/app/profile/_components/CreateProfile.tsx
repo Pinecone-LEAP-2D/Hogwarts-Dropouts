@@ -46,8 +46,12 @@ export const CreateProfile = (props: {
     socialMediaURL: string;
   }) => {
     const response = await axios.post("http://localhost:4000/profile", values);
+    console.log(response);
+
     if (response.data.id) {
       setPage(2);
+    } else if (response.data.message.includes("Name")) {
+      alert("Name exist enter another name.");
     }
   };
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {

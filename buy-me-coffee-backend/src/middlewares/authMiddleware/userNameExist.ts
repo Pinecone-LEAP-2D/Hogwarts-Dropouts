@@ -13,7 +13,7 @@ export const userNameExist = async (
       },
     });
     if (isExist) {
-      res.status(404).send({
+      res.send({
         success: false,
         message: "Username exist",
       });

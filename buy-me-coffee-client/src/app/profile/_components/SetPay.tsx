@@ -61,6 +61,8 @@ export const SetPay = () => {
       });
       if (response.data.id) {
         router.push("/home");
+      } else if (response.data.message.includes("number")) {
+        alert("Card number exist enter another one.");
       }
     } catch (error) {
       console.log(error);

@@ -2,7 +2,7 @@ import prisma from "../../prismaClient";
 import { Request, Response } from "express";
 
 export const getReceivedDonation = async (req: Request, res: Response) => {
-  // const { id } = req.body;
+  // const { userId } = req.body;
 
   try {
     const receivedDonations = await prisma.donations.findMany({
@@ -19,9 +19,9 @@ export const getReceivedDonation = async (req: Request, res: Response) => {
     console.error("Error fetching received donations:", err);
     res.status(500).send({
       error: true,
-      message: err, 
+      message: err,
     });
   } finally {
-    await prisma.$disconnect(); 
+    await prisma.$disconnect();
   }
 };
