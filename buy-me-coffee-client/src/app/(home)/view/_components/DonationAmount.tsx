@@ -82,22 +82,6 @@ export const DonationAmount = (props: { currentUser: ProfileType }) => {
               <Coffee className="mr-1" />${amt}
             </Button>
           ))}
-          {/* <Button className="bg-[#F4F4F5] text-black w-[72px] h-[40px]">
-            <Coffee />
-            $1
-          </Button>
-          <Button className="bg-[#F4F4F5] text-black w-[72px] h-[40px]">
-            <Coffee />
-            $2
-          </Button>
-          <Button className="bg-[#F4F4F5] text-black w-[72px] h-[40px]">
-            <Coffee />
-            $5
-          </Button>
-          <Button className="bg-[#F4F4F5] text-black w-[72px] h-[40px]">
-            <Coffee />
-            $10
-          </Button> */}
         </div>
       </div>
       <div>

@@ -13,7 +13,7 @@ export default function Home() {
       <p className="font-bold  text-3xl">My account</p>
       <EditProfile />
       <ChangePassword />
-      {user.bankCards?.map((card, index) => {
+      {user?.bankCards?.map((card, index) => {
         return <PaymentDetail key={index} values={card} />;
       })}
       <SuccessMessage />

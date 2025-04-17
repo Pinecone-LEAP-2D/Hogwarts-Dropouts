@@ -106,7 +106,7 @@ export const SelectCoverImage = (props: { currentUser: ProfileType }) => {
         hidden
       />
 
-      {currentUser.id === user.id && (
+      {currentUser?.id === user?.id && (
         <div
           className={`absolute z-10 ${
             imageUrl

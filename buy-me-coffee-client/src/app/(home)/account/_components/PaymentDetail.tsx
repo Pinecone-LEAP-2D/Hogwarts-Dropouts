@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import moment from "moment";
 import { Button } from "@/components/ui/button";
 import { useProfile } from "@/providers/ProfileProvider";
+import { useState } from "react";
 const countris = [
   "United States",
   "Australia",
@@ -40,6 +41,7 @@ export const PaymentDetail = (props: {
 }) => {
   const { expiryDate } = props.values;
   const { updateCardInfo } = useProfile();
+  const [isSaving, setIsSaving] = useState(false);
   const form = useForm<z.infer<typeof payInfoSchema>>({
     resolver: zodResolver(payInfoSchema),
     defaultValues: {
@@ -50,14 +52,21 @@ export const PaymentDetail = (props: {
     },
   });
   const onSubmit = async (values: z.infer<typeof payInfoSchema>) => {
-    await updateCardInfo({
-      id: values.id,
-      expiryDate: form.getValues("expires") + "/" + form.getValues("year"),
-      country: values.country,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      cardNumber: values.cardNumber,
-    });
+    setIsSaving(true);
+    try {
+      await updateCardInfo({
+        id: values.id,
+        expiryDate: form.getValues("expires") + "/" + form.getValues("year"),
+        country: values.country,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        cardNumber: values.cardNumber,
+      });
+    } catch (err) {
+      console.error(err, "error");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -238,8 +247,8 @@ export const PaymentDetail = (props: {
               )}
             />
           </div>
-          <Button className="w-full" type="submit">
-            Save changes
+          <Button type="submit" className="w-full" disabled={isSaving}>
+            {isSaving ? "Saving..." : "Save changes"}
           </Button>
         </div>
       </form>
