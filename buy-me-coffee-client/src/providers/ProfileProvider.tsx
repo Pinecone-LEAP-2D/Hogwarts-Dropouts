@@ -6,6 +6,7 @@ import React, { createContext, useContext, useState } from "react";
 
 export type ProfileType = {
   id: number;
+  userId: number;
   name: string | undefined;
   avatarImage: string | undefined;
   socialMediaURL: string | undefined;
