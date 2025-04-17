@@ -2,13 +2,13 @@ import prisma from "../../prismaClient";
 import { Request, Response } from "express";
 
 export const getReceivedDonation = async (req: Request, res: Response) => {
-  // const { userId } = req.body;
+  const { userId } = req.query;
 
   try {
     const receivedDonations = await prisma.donations.findMany({
-      // where: {
-      //   recipientId: id,
-      // },
+      where: {
+        recipientId: Number(userId),
+      },
       include: {
         donor: true,
       },

@@ -6,6 +6,6 @@ import { searchDonations } from "../controllers/donationControllers/getSearchDon
 import { createDonationMid } from "../middlewares/createDonationMid";
 export const donationRouter = express.Router();
 donationRouter.post("/", createDonationMid, donationPay);
-donationRouter.get("/", getReceivedDonation);
+donationRouter.get("/:userId", getReceivedDonation);
 donationRouter.get("/total-earnings/:userId", getTotalEarnings);
 donationRouter.get("/search/:userId", searchDonations);

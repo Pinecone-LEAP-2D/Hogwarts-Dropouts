@@ -4,13 +4,14 @@ import { getReceivedDonations } from "@/app/utils/Axios";
 import axios from "axios";
 import { useProfile } from "./ProfileProvider";
 import { Loader } from "@/components/Loader";
-
+import moment from "moment";
 type receivedDonations = {
   id: number;
   amount: number;
   specialMessage: string;
   socialURLOrBuyMeACoffee: string;
   recipientId: number;
+  createdAt: string;
   donorId: number;
   donor: {
     id: number;
@@ -18,7 +19,7 @@ type receivedDonations = {
     username: string;
   };
 };
-type Donation = {
+export type Donation = {
   amount: number;
   specialMessage: string;
   socialURLOrBuyMeACoffee: string;
@@ -47,18 +48,38 @@ export const DonationProvider = ({
 }) => {
   const [donations, setDonations] = useState<receivedDonations[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const { user } = useProfile();
+  // const fetchDonations = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const data = await getReceivedDonations();
+  //     setDonations(data || []);
+  //   } catch (error) {
+  //     console.error("Error fetching donations:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const fetchDonations = async () => {
     try {
       setLoading(true);
-      const data = await getReceivedDonations();
-      setDonations(data || []);
+      const data = await getReceivedDonations(user.id);
+      console.log(data, "dataaaaa");
+
+      const formattedData = data.map((donation: receivedDonations) => ({
+        ...donation,
+        createdAt: moment().startOf("day").fromNow(),
+      }));
+      console.log(formattedData);
+
+      setDonations(formattedData || []);
     } catch (error) {
       console.error("Error fetching donations:", error);
     } finally {
       setLoading(false);
     }
   };
+
   const createDonations = async (donation: Donation) => {
     try {
       const response = await axios.post(

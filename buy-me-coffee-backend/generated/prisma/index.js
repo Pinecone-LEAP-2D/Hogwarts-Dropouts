@@ -168,7 +168,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/24LP9506/Desktop/Hogwarts-Dropouts/buy-me-coffee-backend/generated/prisma",
+      "value": "C:\\Users\\my laptop\\Downloads\\buy-me-coffee\\Hogwarts-Dropouts\\buy-me-coffee-backend\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -177,12 +177,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/24LP9506/Desktop/Hogwarts-Dropouts/buy-me-coffee-backend/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\my laptop\\Downloads\\buy-me-coffee\\Hogwarts-Dropouts\\buy-me-coffee-backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -196,16 +200,17 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://neondb_owner:npg_6yphokOBG1ag@ep-long-credit-a5bqpaql-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require"
+        "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id                Int         @id @default(autoincrement())\n  email             String      @unique\n  password          String\n  username          String      @unique\n  receivedDonations Donations[] @relation(\"RecievedDonation\")\n  bankCard          BankCard[]  @relation(\"BankCards\")\n  createdAt         DateTime    @default(now())\n  updatedAt         DateTime    @updatedAt\n  Donations         Donations[]\n  Profile           Profile?\n}\n\nmodel Donations {\n  id                      Int      @id @default(autoincrement())\n  amount                  Int\n  specialMessage          String\n  socialURLOrBuyMeACoffee String\n  recipientId             Int\n  donorId                 Int\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n  donor                   User     @relation(\"RecievedDonation\", fields: [donorId], references: [id])\n  recipient               User     @relation(fields: [recipientId], references: [id])\n}\n\nmodel Profile {\n  id              Int      @id @default(autoincrement())\n  name            String   @unique\n  about           String\n  avatarImage     String\n  socialMediaURL  String\n  backgroundImage String?  @default(\"\")\n  successMessage  String?  @default(\"\")\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @updatedAt\n  userId          Int      @unique\n  user            User     @relation(fields: [userId], references: [id])\n}\n\nmodel BankCard {\n  id         Int      @id @default(autoincrement())\n  country    String\n  firstName  String\n  lastName   String\n  cardNumber String   @unique\n  expiryDate String\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  user       User     @relation(\"BankCards\", fields: [userId], references: [id])\n  userId     Int\n}\n",
-  "inlineSchemaHash": "414046fff7e5eb4bfc4251b9fdb2708d751d0da1125f2a93e43ef0041b324d88",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"windows\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id                Int         @id @default(autoincrement())\n  email             String      @unique\n  password          String\n  username          String      @unique\n  receivedDonations Donations[] @relation(\"RecievedDonation\")\n  bankCard          BankCard[]  @relation(\"BankCards\")\n  createdAt         DateTime    @default(now())\n  updatedAt         DateTime    @updatedAt\n  Donations         Donations[]\n  Profile           Profile?\n}\n\nmodel Donations {\n  id                      Int      @id @default(autoincrement())\n  amount                  Int\n  specialMessage          String\n  socialURLOrBuyMeACoffee String\n  recipientId             Int\n  donorId                 Int\n  createdAt               DateTime @default(now())\n  updatedAt               DateTime @updatedAt\n  donor                   User     @relation(\"RecievedDonation\", fields: [donorId], references: [id])\n  recipient               User     @relation(fields: [recipientId], references: [id])\n}\n\nmodel Profile {\n  id              Int      @id @default(autoincrement())\n  name            String   @unique\n  about           String\n  avatarImage     String\n  socialMediaURL  String\n  backgroundImage String?  @default(\"\")\n  successMessage  String?  @default(\"\")\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @updatedAt\n  userId          Int      @unique\n  user            User     @relation(fields: [userId], references: [id])\n}\n\nmodel BankCard {\n  id         Int      @id @default(autoincrement())\n  country    String\n  firstName  String\n  lastName   String\n  cardNumber String   @unique\n  expiryDate String\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  user       User     @relation(\"BankCards\", fields: [userId], references: [id])\n  userId     Int\n}\n",
+  "inlineSchemaHash": "8ea9609906c9eadded999703e548e2229a572feb22d8a2724399eb2e21f78825",
   "copyEngine": true
 }
 
@@ -244,8 +249,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
-path.join(process.cwd(), "generated/prisma/libquery_engine-darwin-arm64.dylib.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/prisma/schema.prisma")
