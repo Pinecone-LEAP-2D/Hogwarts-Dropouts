@@ -10,6 +10,7 @@ export default function Home() {
   const { user } = useProfile();
   return (
     <div className="w-3/7  flex flex-col justify-center ">
+      <p className="font-bold  text-3xl">My account</p>
       <EditProfile />
       <ChangePassword />
       {user.bankCards?.map((card, index) => {

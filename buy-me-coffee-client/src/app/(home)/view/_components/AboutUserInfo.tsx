@@ -17,7 +17,7 @@ export const AboutUserInfo = (props: { currentUser: ProfileType }) => {
           <div className="flex items-center gap-4">
             <img
               className="rounded-full"
-              src="/AvatarImage.png"
+              src={user.avatarImage}
               width={48}
               height={48}
               alt="Jake's avatar"

@@ -50,7 +50,9 @@ export const SelectCoverImage = (props: { currentUser: ProfileType }) => {
   const { user } = useProfile();
   const { currentUser } = props;
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | undefined>(
+    currentUser.backgroundImage
+  );
   const [previewImage, setPreviewImage] = useState<string | undefined>(
     currentUser?.backgroundImage
   );

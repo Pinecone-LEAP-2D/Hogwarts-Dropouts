@@ -18,7 +18,7 @@ export default function Home() {
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
   return (
-    <div className="w-full relative z-1000" style={{ height: `${height}px` }}>
+    <div className="w-full relative " style={{ height: `${height}px` }}>
       <SelectCoverImage currentUser={user} />
       <div className="flex gap-5 absolute left-1/2 top-[250px] transform -translate-x-1/2">
         <AboutUserInfo currentUser={user} />
