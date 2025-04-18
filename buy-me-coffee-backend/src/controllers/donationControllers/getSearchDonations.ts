@@ -1,21 +1,18 @@
-
 import prisma from "../../prismaClient";
 import { Request, Response } from "express";
 
 export const searchDonations = async (req: Request, res: Response) => {
   const { amount, date } = req.query;
-  const userId = Number(req.params.userId)
+  const userId = Number(req.params.userId);
 
   const now = new Date();
   let dateFilter = {};
 
-  
   if (date === "last30") {
     dateFilter = { gte: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000) };
   } else if (date === "last90") {
     dateFilter = { gte: new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000) };
   }
-
 
   let amountCondition = {};
 
@@ -30,13 +27,25 @@ export const searchDonations = async (req: Request, res: Response) => {
       where: {
         ...amountCondition,
         ...(Object.keys(dateFilter).length > 0 && {
-          createdAt: dateFilter, 
-          recipientId: userId
+          createdAt: dateFilter,
+          recipientId: userId,
         }),
-        
       },
       orderBy: {
         createdAt: "desc",
+      },
+      include: {
+        donor: {
+          select: {
+            Profile: {
+              select: {
+                avatarImage: true,
+                name: true,
+                socialMediaURL: true,
+              },
+            },
+          },
+        },
       },
     });
 

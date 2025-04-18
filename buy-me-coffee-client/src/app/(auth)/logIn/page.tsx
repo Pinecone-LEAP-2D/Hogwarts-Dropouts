@@ -1,6 +1,6 @@
 "use client";
 
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,7 +27,9 @@ export default function LoginPage() {
       if (response.data.success) {
         router.push("/home");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
     const response = await axios.post(
       "http://localhost:4000/auth/sign-in",
       values

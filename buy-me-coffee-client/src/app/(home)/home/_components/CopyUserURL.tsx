@@ -5,7 +5,7 @@ import React from "react";
 
 export const CopyUserURL: React.FC = () => {
   const { user } = useProfile();
-  const textToCopy = user.socialMediaURL;
+  const textToCopy = user?.socialMediaURL;
 
   const handleCopy = async () => {
     try {

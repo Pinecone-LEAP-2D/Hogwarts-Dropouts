@@ -1,5 +1,5 @@
 import prisma from "../../prismaClient";
-import Express, { Request, Response } from "express";
+import { Request, Response } from "express";
 
 type Donation = {
   amount: number;

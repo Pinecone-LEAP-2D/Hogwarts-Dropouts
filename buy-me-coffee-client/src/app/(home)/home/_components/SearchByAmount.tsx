@@ -25,6 +25,7 @@ export const SearchByAmount = () => {
     try {
       await searchDonations({ amount: numericAmount });
     } catch (error) {
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -68,17 +69,17 @@ export const SearchByAmount = () => {
                       <div className="flex gap-4">
                         <img
                           className="rounded-full"
-                          src={"/AvatarImage.png"}
+                          src={donation.donor?.Profile.avatarImage}
                           width={48}
                           height={48}
                           alt="Jake's avatar"
                         />
                         <div className="flex flex-col gap-1">
                           <p className="font-medium">
-                            {donation.donor?.username}
+                            {donation.donor?.Profile.name}
                           </p>
                           <a className="text-xs">
-                            {donation.socialURLOrBuyMeACoffee}
+                            {donation.donor?.Profile.socialMediaURL}
                           </a>
                         </div>
                       </div>

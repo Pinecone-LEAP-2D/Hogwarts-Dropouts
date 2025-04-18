@@ -16,7 +16,7 @@ export default function RootLayout({
           <img src="https://res.cloudinary.com/dszot6j60/image/upload/v1744874396/coffee_tetumj.png" />
           <p className="font-bold text-3xl pt-7">Fund your creative work</p>
           <p className="p-3 text-xl">
-            Accept support. Start a membership. Set up a shop. It's easier than
+            Accept support. Start a membership. Set up a shop. Its easier than
             you think.
           </p>
         </div>
