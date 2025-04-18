@@ -34,7 +34,10 @@ const saveProfile = async (values: {
   backgroundImage: string;
 }) => {
   try {
-    await axios.put("http://localhost:4000/profile", values);
+    await axios.put(
+      "https://render.com/docs/web-services#port-binding/profile",
+      values
+    );
   } catch (err) {
     console.error("Error updating profile", err);
   }

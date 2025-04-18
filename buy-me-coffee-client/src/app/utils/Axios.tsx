@@ -6,7 +6,7 @@ export const getReceivedDonations = async () => {
     typeof window !== "undefined" ? localStorage.getItem("userId") : 0;
   try {
     const response = await axios.get(
-      `http://localhost:4000/donation/${userId} `
+      `https://render.com/docs/web-services#port-binding/donation/${userId} `
     );
 
     return response.data || [];
@@ -16,9 +16,12 @@ export const getReceivedDonations = async () => {
 };
 export const addDonation = async (donation: Donation) => {
   try {
-    const response = await axios.post("http://localhost:4000/donation", {
-      ...donation,
-    });
+    const response = await axios.post(
+      "https://render.com/docs/web-services#port-binding/donation",
+      {
+        ...donation,
+      }
+    );
 
     return response.data;
   } catch (err) {

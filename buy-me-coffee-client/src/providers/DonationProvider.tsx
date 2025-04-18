@@ -75,7 +75,7 @@ export const DonationProvider = ({
   const createDonations = async (donation: Donation) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/donation",
+        "https://render.com/docs/web-services#port-binding/donation",
         donation
       );
       setDonations(prev => [response.data, ...prev]);
@@ -88,7 +88,7 @@ export const DonationProvider = ({
   const fetchTotalEarnings = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:4000/donation/total-earnings/${userId}`
+        `https://render.com/docs/web-services#port-binding/donation/total-earnings/${userId}`
       );
       setTotalEarnings(res.data.totalEarnings || 0);
     } catch (err) {
@@ -103,7 +103,7 @@ export const DonationProvider = ({
     try {
       const params = new URLSearchParams(filters).toString();
       const res = await axios.get(
-        `http://localhost:4000/donation/search/${userId}?${params}`
+        `https://render.com/docs/web-services#port-binding/donation/search/${userId}?${params}`
       );
 
       const formattedData = res.data.donations?.map(

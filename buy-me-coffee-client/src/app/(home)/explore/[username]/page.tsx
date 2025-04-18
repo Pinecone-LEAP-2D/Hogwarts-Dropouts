@@ -16,7 +16,7 @@ export default function Home() {
 
   const getUserInfo = async () => {
     const response = await axios.get(
-      `http://localhost:4000/profile/view/${username}`
+      `https://render.com/docs/web-services#port-binding/profile/view/${username}`
     );
     setUser(response.data);
   };

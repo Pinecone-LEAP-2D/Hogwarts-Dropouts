@@ -26,7 +26,7 @@ export const Step2 = () => {
   }) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/auth/sign-up",
+        "https://render.com/docs/web-services#port-binding/auth/sign-up",
         values
       );
 

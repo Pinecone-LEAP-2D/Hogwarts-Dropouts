@@ -14,7 +14,9 @@ export const Dashboard = (props: {
   const [allCreators, setAllCreators] = useState<ProfileType[]>([]);
   const getAllCreators = async () => {
     setLoading(true);
-    const response = await axios.get("http://localhost:4000/profile/explore");
+    const response = await axios.get(
+      "https://render.com/docs/web-services#port-binding/profile/explore"
+    );
     setAllCreators(response.data);
     setLoading(false);
   };

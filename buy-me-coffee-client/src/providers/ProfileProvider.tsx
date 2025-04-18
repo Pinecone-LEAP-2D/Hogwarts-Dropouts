@@ -50,7 +50,7 @@ export const ProfileProvider = ({
     queryFn: async () => {
       setIsLoading(true);
       const response = await axios.get(
-        `http://localhost:4000/profile/?currentUser=${userId}`
+        `https://render.com/docs/web-services#port-binding/profile/?currentUser=${userId}`
       );
       if (!response.data) {
         router.push("/profile");
@@ -67,17 +67,23 @@ export const ProfileProvider = ({
   };
 
   const updateProfile = async (values: ProfileType) => {
-    await axios.put("http://localhost:4000/profile", {
-      profileId: user.id,
-      ...values,
-    });
+    await axios.put(
+      "https://render.com/docs/web-services#port-binding/profile",
+      {
+        profileId: user.id,
+        ...values,
+      }
+    );
     await refetch();
   };
   const updateCardInfo = async (values: BankCard) => {
-    await axios.put("http://localhost:4000/bank-acc", {
-      ...values,
-      profileId: values.id,
-    });
+    await axios.put(
+      "https://render.com/docs/web-services#port-binding/bank-acc",
+      {
+        ...values,
+        profileId: values.id,
+      }
+    );
     await refetch();
   };
 
