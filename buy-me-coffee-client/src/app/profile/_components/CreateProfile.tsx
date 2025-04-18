@@ -46,7 +46,7 @@ export const CreateProfile = (props: {
     socialMediaURL: string;
   }) => {
     const response = await axios.post(
-      "https://render.com/docs/web-services#port-binding/profile",
+      "https://hogwarts-dropouts-ore5.onrender.com/profile",
       values
     );
     console.log(response);
@@ -187,4 +187,4 @@ export const CreateProfile = (props: {
     </FormProvider>
   );
 };
-//https://render.com/docs/web-services#port-binding/profile/?currentUser=sar
+//https://hogwarts-dropouts-ore5.onrender.com/profile/?currentUser=sar

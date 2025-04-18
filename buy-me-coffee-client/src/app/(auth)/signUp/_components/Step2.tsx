@@ -26,7 +26,7 @@ export const Step2 = () => {
   }) => {
     try {
       const response = await axios.post(
-        "https://render.com/docs/web-services#port-binding/auth/sign-up",
+        "https://hogwarts-dropouts-ore5.onrender.com/auth/sign-up",
         values
       );
 

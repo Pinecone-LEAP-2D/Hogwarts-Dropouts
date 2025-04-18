@@ -35,7 +35,7 @@ const saveProfile = async (values: {
 }) => {
   try {
     await axios.put(
-      "https://render.com/docs/web-services#port-binding/profile",
+      "https://hogwarts-dropouts-ore5.onrender.com/profile",
       values
     );
   } catch (err) {

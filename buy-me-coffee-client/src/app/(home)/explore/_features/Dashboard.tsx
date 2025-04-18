@@ -15,7 +15,7 @@ export const Dashboard = (props: {
   const getAllCreators = async () => {
     setLoading(true);
     const response = await axios.get(
-      "https://render.com/docs/web-services#port-binding/profile/explore"
+      "https://hogwarts-dropouts-ore5.onrender.com/profile/explore"
     );
     setAllCreators(response.data);
     setLoading(false);

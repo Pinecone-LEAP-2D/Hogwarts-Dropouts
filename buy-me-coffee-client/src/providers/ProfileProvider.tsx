@@ -50,7 +50,7 @@ export const ProfileProvider = ({
     queryFn: async () => {
       setIsLoading(true);
       const response = await axios.get(
-        `https://render.com/docs/web-services#port-binding/profile/?currentUser=${userId}`
+        `https://hogwarts-dropouts-ore5.onrender.com/profile/?currentUser=${userId}`
       );
       if (!response.data) {
         router.push("/profile");
@@ -67,23 +67,17 @@ export const ProfileProvider = ({
   };
 
   const updateProfile = async (values: ProfileType) => {
-    await axios.put(
-      "https://render.com/docs/web-services#port-binding/profile",
-      {
-        profileId: user.id,
-        ...values,
-      }
-    );
+    await axios.put("https://hogwarts-dropouts-ore5.onrender.com/profile", {
+      profileId: user.id,
+      ...values,
+    });
     await refetch();
   };
   const updateCardInfo = async (values: BankCard) => {
-    await axios.put(
-      "https://render.com/docs/web-services#port-binding/bank-acc",
-      {
-        ...values,
-        profileId: values.id,
-      }
-    );
+    await axios.put("https://hogwarts-dropouts-ore5.onrender.com/bank-acc", {
+      ...values,
+      profileId: values.id,
+    });
     await refetch();
   };
 

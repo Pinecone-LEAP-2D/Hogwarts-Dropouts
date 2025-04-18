@@ -56,7 +56,7 @@ export const SetPay = () => {
         : 0;
     try {
       const response = await axios.post(
-        "https://render.com/docs/web-services#port-binding/bank-acc",
+        "https://hogwarts-dropouts-ore5.onrender.com/bank-acc",
         {
           userId: userId,
           ...values,

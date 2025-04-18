@@ -19,7 +19,7 @@ export default function LoginPage() {
   const handleLogin = async (values: { email: string; password: string }) => {
     try {
       const response = await axios.post(
-        "https://render.com/docs/web-services#port-binding/auth/sign-in",
+        "https://hogwarts-dropouts-ore5.onrender.com/auth/sign-in",
         values
       );
       localStorage.setItem("token", response.data.token);
@@ -31,7 +31,7 @@ export default function LoginPage() {
       console.log(error);
     }
     const response = await axios.post(
-      "https://render.com/docs/web-services#port-binding/auth/sign-in",
+      "https://hogwarts-dropouts-ore5.onrender.com/auth/sign-in",
       values
     );
     localStorage.setItem("token", response.data.token);
