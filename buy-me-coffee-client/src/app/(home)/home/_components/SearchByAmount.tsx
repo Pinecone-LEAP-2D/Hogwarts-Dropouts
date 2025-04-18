@@ -25,6 +25,7 @@ export const SearchByAmount = () => {
     try {
       await searchDonations({ amount: numericAmount });
     } catch (error) {
+      console.log(error);
     } finally {
       setLoading(false);
     }

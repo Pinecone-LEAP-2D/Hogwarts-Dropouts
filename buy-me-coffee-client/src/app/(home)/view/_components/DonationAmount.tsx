@@ -28,7 +28,7 @@ export const DonationAmount = (props: { currentUser: ProfileType }) => {
         .required("URL is required"),
       message: Yup.string().max(280, "Message too long"),
     }),
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async values => {
       if (!selectAmount) {
         alert("Please select a donation amount.");
         return;

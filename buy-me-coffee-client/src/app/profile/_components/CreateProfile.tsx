@@ -85,7 +85,7 @@ export const CreateProfile = (props: {
         <FormField
           control={form.control}
           name="avatarImage"
-          render={({ field }) => (
+          render={() => (
             <FormItem>
               <FormLabel htmlFor="image">
                 <div className="flex flex-col gap-2">

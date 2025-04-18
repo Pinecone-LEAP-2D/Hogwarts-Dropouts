@@ -2,7 +2,6 @@
 
 import { SearchByAmount } from "./_components/SearchByAmount";
 import { TotalEarning } from "./_components/TotalEarning";
-import { useState } from "react";
 
 export default function Home() {
   return (

@@ -34,7 +34,7 @@ const saveProfile = async (values: {
   backgroundImage: string;
 }) => {
   try {
-    const response = await axios.put("http://localhost:4000/profile", values);
+    await axios.put("http://localhost:4000/profile", values);
   } catch (err) {
     console.error("Error updating profile", err);
   }

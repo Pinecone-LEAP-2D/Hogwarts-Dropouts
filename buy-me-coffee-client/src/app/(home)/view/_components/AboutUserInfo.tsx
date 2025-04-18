@@ -66,7 +66,7 @@ export const AboutUserInfo = (props: { currentUser: ProfileType }) => {
                 </p>
                 {donation.specialMessage && (
                   <p className="text-sm text-gray-600">
-                    "{donation.specialMessage}"
+                    {donation.specialMessage}
                   </p>
                 )}
               </div>

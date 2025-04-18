@@ -27,7 +27,6 @@ export const SuccessMessage = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof MessageType>) => {
-
     setIsSaving(true);
     try {
       await updateProfile({
@@ -39,6 +38,7 @@ export const SuccessMessage = () => {
         about: undefined,
         backgroundImage: undefined,
         bankCards: [],
+        userId: 0,
       });
     } catch (Error) {
       console.error("error", Error);

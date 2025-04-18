@@ -36,10 +36,6 @@ export const EditProfile = () => {
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {
     setIsSaving(true);
     try {
-      const avatarUrl = uploadImg
-        ? await uploadImageToCloudinary(uploadImg)
-        : user.avatarImage;
-
       await updateProfile({
         ...values,
         avatarImage: uploadImg
