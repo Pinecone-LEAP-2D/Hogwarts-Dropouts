@@ -50,7 +50,7 @@ export const ProfileProvider = ({
     queryFn: async () => {
       setIsLoading(true);
       const response = await axios.get(
-        `http://localhost:4000/profile/?currentUser=${userId}`
+        `https://hogwarts-dropouts-sv7s.onrender.com/profile/?currentUser=${userId}`
       );
       if (!response.data) {
         router.push("/profile");
@@ -67,14 +67,14 @@ export const ProfileProvider = ({
   };
 
   const updateProfile = async (values: ProfileType) => {
-    await axios.put("http://localhost:4000/profile", {
+    await axios.put("https://hogwarts-dropouts-sv7s.onrender.com/profile", {
       profileId: user.id,
       ...values,
     });
     await refetch();
   };
   const updateCardInfo = async (values: BankCard) => {
-    await axios.put("http://localhost:4000/bank-acc", {
+    await axios.put("https://hogwarts-dropouts-sv7s.onrender.com/bank-acc", {
       ...values,
       profileId: values.id,
     });

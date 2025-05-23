@@ -26,7 +26,7 @@ export const Step2 = () => {
   }) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/auth/sign-up",
+        "https://hogwarts-dropouts-sv7s.onrender.com/auth/sign-up",
         values
       );
 

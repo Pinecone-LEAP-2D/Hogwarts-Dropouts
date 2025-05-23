@@ -14,7 +14,9 @@ export const Dashboard = (props: {
   const [allCreators, setAllCreators] = useState<ProfileType[]>([]);
   const getAllCreators = async () => {
     setLoading(true);
-    const response = await axios.get("http://localhost:4000/profile/explore");
+    const response = await axios.get(
+      "https://hogwarts-dropouts-sv7s.onrender.com/profile/explore"
+    );
     setAllCreators(response.data);
     setLoading(false);
   };

@@ -16,7 +16,7 @@ export default function Home() {
 
   const getUserInfo = async () => {
     const response = await axios.get(
-      `http://localhost:4000/profile/view/${username}`
+      `https://hogwarts-dropouts-sv7s.onrender.com/profile/view/${username}`
     );
     setUser(response.data);
   };

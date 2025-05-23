@@ -55,10 +55,13 @@ export const SetPay = () => {
         ? parseInt(localStorage.getItem("userId") || "")
         : 0;
     try {
-      const response = await axios.post("http://localhost:4000/bank-acc", {
-        userId: userId,
-        ...values,
-      });
+      const response = await axios.post(
+        "https://hogwarts-dropouts-sv7s.onrender.com/bank-acc",
+        {
+          userId: userId,
+          ...values,
+        }
+      );
       if (response.data.id) {
         router.push("/home");
       } else if (response.data.message.includes("number")) {

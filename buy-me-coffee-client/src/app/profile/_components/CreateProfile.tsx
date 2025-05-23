@@ -45,7 +45,10 @@ export const CreateProfile = (props: {
     avatarImage: string;
     socialMediaURL: string;
   }) => {
-    const response = await axios.post("http://localhost:4000/profile", values);
+    const response = await axios.post(
+      "https://hogwarts-dropouts-sv7s.onrender.com/profile",
+      values
+    );
     console.log(response);
 
     if (response.data.id) {
@@ -184,4 +187,4 @@ export const CreateProfile = (props: {
     </FormProvider>
   );
 };
-//http://localhost:4000/profile/?currentUser=sar
+//https://hogwarts-dropouts-sv7s.onrender.com/profile/?currentUser=sar
