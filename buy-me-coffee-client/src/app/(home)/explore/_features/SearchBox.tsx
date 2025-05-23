@@ -14,7 +14,7 @@ export const SearchBox = (props: {
   const getPros = async (value: string) => {
     setLoading(true);
     const response = await axios.get(
-      `https://hogwarts-dropouts-ore5.onrender.com/profile/explore?name=${value}`
+      `https://hogwarts-dropouts-sv7s.onrender.com/profile/explore?name=${value}`
     );
     setProfiles(response.data);
     setLoading(false);

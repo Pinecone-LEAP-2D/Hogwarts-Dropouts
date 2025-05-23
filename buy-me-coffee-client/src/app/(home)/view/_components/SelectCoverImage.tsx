@@ -35,7 +35,7 @@ const saveProfile = async (values: {
 }) => {
   try {
     await axios.put(
-      "https://hogwarts-dropouts-ore5.onrender.com/profile",
+      "https://hogwarts-dropouts-sv7s.onrender.com/profile",
       values
     );
   } catch (err) {

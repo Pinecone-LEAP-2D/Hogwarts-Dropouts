@@ -6,7 +6,7 @@ export const getReceivedDonations = async () => {
     typeof window !== "undefined" ? localStorage.getItem("userId") : 0;
   try {
     const response = await axios.get(
-      `https://hogwarts-dropouts-ore5.onrender.com/donation/${userId} `
+      `https://hogwarts-dropouts-sv7s.onrender.com/donation/${userId} `
     );
 
     return response.data || [];
@@ -17,7 +17,7 @@ export const getReceivedDonations = async () => {
 export const addDonation = async (donation: Donation) => {
   try {
     const response = await axios.post(
-      "https://hogwarts-dropouts-ore5.onrender.com/donation",
+      "https://hogwarts-dropouts-sv7s.onrender.com/donation",
       {
         ...donation,
       }

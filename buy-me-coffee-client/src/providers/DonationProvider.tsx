@@ -75,7 +75,7 @@ export const DonationProvider = ({
   const createDonations = async (donation: Donation) => {
     try {
       const response = await axios.post(
-        "https://hogwarts-dropouts-ore5.onrender.com/donation",
+        "https://hogwarts-dropouts-sv7s.onrender.com/donation",
         donation
       );
       setDonations(prev => [response.data, ...prev]);
@@ -88,7 +88,7 @@ export const DonationProvider = ({
   const fetchTotalEarnings = async () => {
     try {
       const res = await axios.get(
-        `https://hogwarts-dropouts-ore5.onrender.com/donation/total-earnings/${userId}`
+        `https://hogwarts-dropouts-sv7s.onrender.com/donation/total-earnings/${userId}`
       );
       setTotalEarnings(res.data.totalEarnings || 0);
     } catch (err) {
@@ -103,7 +103,7 @@ export const DonationProvider = ({
     try {
       const params = new URLSearchParams(filters).toString();
       const res = await axios.get(
-        `https://hogwarts-dropouts-ore5.onrender.com/donation/search/${userId}?${params}`
+        `https://hogwarts-dropouts-sv7s.onrender.com/donation/search/${userId}?${params}`
       );
 
       const formattedData = res.data.donations?.map(

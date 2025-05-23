@@ -56,7 +56,7 @@ export const SetPay = () => {
         : 0;
     try {
       const response = await axios.post(
-        "https://hogwarts-dropouts-ore5.onrender.com/bank-acc",
+        "https://hogwarts-dropouts-sv7s.onrender.com/bank-acc",
         {
           userId: userId,
           ...values,
